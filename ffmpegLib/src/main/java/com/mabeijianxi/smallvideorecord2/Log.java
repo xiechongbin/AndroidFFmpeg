@@ -3,7 +3,7 @@ package com.mabeijianxi.smallvideorecord2;
 public class Log {
 
 	private static boolean gIsLog;
-	private static final String TAG = "jianxi_ffmpeg";
+	private static final String TAG = "ffmpeg";
 
 	public static void setLog(boolean isLog) {
 		Log.gIsLog = isLog;

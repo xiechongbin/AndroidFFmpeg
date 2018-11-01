@@ -8,8 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <SurfaceView
-            android:id="@+id/record_preview"
+        <com.serenegiant.usb.widget.UVCCameraTextureView
+            android:id="@+id/uvc_preview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="49dp"/>
@@ -48,15 +48,6 @@
                 android:button="@null"
                 android:textColor="@android:color/white"/>
 
-            <CheckBox
-                android:id="@+id/record_camera_switcher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dip"
-                android:layout_marginRight="10dp"
-                android:background="@drawable/record_camera_switch_selector"
-                android:button="@null"/>
-
             <ImageView
                 android:id="@+id/title_next"
                 android:layout_width="wrap_content"
@@ -80,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/record_progress"
-        android:layout_marginTop="300dip"
+        android:layout_marginTop="400dip"
         android:background="@color/color_381902"
         >
 

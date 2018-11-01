@@ -1,0 +1,17 @@
+bin/
+obj
+obj/local
+gen/
+bin/dexedLibs
+bin/res
+bin/*.xml
+bin/classes
+bin/res
+bin/jarlist.cache
+*.cache
+.gradle/
+.gradle
+build/
+build
+*.apk
+*.ap_

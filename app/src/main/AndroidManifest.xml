@@ -27,6 +27,10 @@
             android:theme="@style/AppNoBarTheme"
             />
         <activity
+            android:name="com.mabeijianxi.smallvideorecord2.UVCMediaRecorderActivity"
+            android:theme="@style/AppNoBarTheme"
+            />
+        <activity
             android:name=".SendSmallVideoActivity"
             android:theme="@style/AppNoBarTheme" />
     </application>

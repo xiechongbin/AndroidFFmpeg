@@ -19,7 +19,6 @@ import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -33,6 +32,7 @@ import com.mabeijianxi.smallvideorecord2.JianXiCamera;
 import com.mabeijianxi.smallvideorecord2.LocalMediaCompress;
 import com.mabeijianxi.smallvideorecord2.MediaRecorderActivity;
 import com.mabeijianxi.smallvideorecord2.StringUtils;
+import com.mabeijianxi.smallvideorecord2.UVCMediaRecorderActivity;
 import com.mabeijianxi.smallvideorecord2.model.AutoVBRMode;
 import com.mabeijianxi.smallvideorecord2.model.BaseMediaBitrateConfig;
 import com.mabeijianxi.smallvideorecord2.model.CBRMode;
@@ -48,29 +48,27 @@ public class MainActivity extends AppCompatActivity {
 
     private final int PERMISSION_REQUEST_CODE = 0x001;
     private ScrollView sv;
-    private Button bt_start;
     private TextView tv_size;
-    private Button bt_choose;
     private EditText et_width;
     private EditText et_height;
-    private EditText et_maxtime;
+    private EditText et_max_time;
     private Spinner spinner_record;
-    private EditText et_maxframerate;
+    private EditText et_max_frame_rate;
     private final int CHOOSE_CODE = 0x000520;
     private RadioGroup rg_aspiration;
     private ProgressDialog mProgressDialog;
     private LinearLayout ll_only_compress;
-    private View i_only_compress;
     private RadioGroup rg_only_compress_mode;
     private LinearLayout ll_only_compress_crf;
     private EditText et_only_compress_crfSize;
     private LinearLayout ll_only_compress_bitrate;
-    private EditText et_only_compress_maxbitrate;
-    private TextView tv_only_compress_maxbitrate;
+    private EditText et_only_compress_max_bitrate;
+    private TextView tv_only_compress_max_bitrate;
     private EditText et_only_compress_bitrate;
     private Spinner spinner_only_compress;
-    private EditText et_only_framerate;
+    private EditText et_only_frame_rate;
     private EditText et_bitrate;
+    private RadioGroup rg_camera;
     private static final String[] permissionManifest = {
             Manifest.permission.CAMERA,
             Manifest.permission.RECORD_AUDIO,
@@ -78,14 +76,19 @@ public class MainActivity extends AppCompatActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
     private EditText et_only_scale;
-    private EditText et_mintime;
+    private EditText et_min_time;
     private Spinner spinner_need_full;
+    private String front_camera_support_size;
+    private String back_camera_support_size;
+    private String uvc_camera_support_size;
+    private int currentCamera;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initSmallVideo();
+        initVideo();
         initView();
         initEvent();
         permissionCheck();
@@ -95,24 +98,24 @@ public class MainActivity extends AppCompatActivity {
         Camera back = Camera.open(Camera.CameraInfo.CAMERA_FACING_BACK);
         List<Camera.Size> backSizeList = back.getParameters().getSupportedPreviewSizes();
         StringBuilder str = new StringBuilder();
-        str.append("经过检查您的摄像头，如使用后置摄像头您可以输入的高度有：");
+        str.append("经过检查您的摄像头，如使用后置摄像头您可以输入的宽度有：");
         for (Camera.Size bSize : backSizeList) {
-            str.append(bSize.height + "、");
+            str.append(bSize.width).append("、");
         }
+        front_camera_support_size = str.toString();
         back.release();
         Camera front = Camera.open(Camera.CameraInfo.CAMERA_FACING_FRONT);
         List<Camera.Size> frontSizeList = front.getParameters().getSupportedPreviewSizes();
-        str.append("如使用前置摄像头您可以输入的高度有：");
+        StringBuilder str1 = new StringBuilder();
+        str1.append("如使用前置摄像头您可以输入的高度有：");
         for (Camera.Size fSize : frontSizeList) {
-            str.append(fSize.height + "、");
+            str1.append(fSize.height).append("、");
         }
+        back_camera_support_size = str1.toString();
         front.release();
-        tv_size.setText(str);
     }
 
     private void initEvent() {
-
-
         rg_only_compress_mode.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -124,14 +127,14 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.rb_vbr:
                         ll_only_compress_crf.setVisibility(View.GONE);
                         ll_only_compress_bitrate.setVisibility(View.VISIBLE);
-                        tv_only_compress_maxbitrate.setVisibility(View.VISIBLE);
-                        et_only_compress_maxbitrate.setVisibility(View.VISIBLE);
+                        tv_only_compress_max_bitrate.setVisibility(View.VISIBLE);
+                        et_only_compress_max_bitrate.setVisibility(View.VISIBLE);
                         break;
                     case R.id.rb_cbr:
                         ll_only_compress_crf.setVisibility(View.GONE);
                         ll_only_compress_bitrate.setVisibility(View.VISIBLE);
-                        tv_only_compress_maxbitrate.setVisibility(View.GONE);
-                        et_only_compress_maxbitrate.setVisibility(View.GONE);
+                        tv_only_compress_max_bitrate.setVisibility(View.GONE);
+                        et_only_compress_max_bitrate.setVisibility(View.GONE);
                         break;
                 }
             }
@@ -148,6 +151,23 @@ public class MainActivity extends AppCompatActivity {
                     case R.id.rb_local:
                         sv.setVisibility(View.GONE);
                         ll_only_compress.setVisibility(View.VISIBLE);
+                        break;
+                }
+            }
+        });
+
+        rg_camera.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                switch (checkedId) {
+                    case R.id.rb_behind:
+                        tv_size.setText(back_camera_support_size);
+                        break;
+                    case R.id.rb_front:
+                        tv_size.setText(front_camera_support_size);
+                        break;
+                    case R.id.rb_ext:
+                        tv_size.setText(uvc_camera_support_size);
                         break;
                 }
             }
@@ -171,50 +191,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initView() {
-        rg_aspiration = (RadioGroup) findViewById(R.id.rg_aspiration);
-        sv = (ScrollView) findViewById(R.id.sv);
-        bt_choose = (Button) findViewById(R.id.bt_choose);
-        ll_only_compress = (LinearLayout) findViewById(R.id.ll_only_compress);
+        rg_aspiration = findViewById(R.id.rg_aspiration);
+        sv = findViewById(R.id.sv);
+        ll_only_compress = findViewById(R.id.ll_only_compress);
 
-        tv_size = (TextView) findViewById(R.id.tv_size);
-        et_width = (EditText) findViewById(R.id.et_width);
-        et_height = (EditText) findViewById(R.id.et_height);
-        et_maxframerate = (EditText) findViewById(R.id.et_maxframerate);
-        et_bitrate = (EditText) findViewById(R.id.et_record_bitrate);
-        et_maxtime = (EditText) findViewById(R.id.et_maxtime);
-        et_mintime = (EditText) findViewById(R.id.et_mintime);
-        et_only_framerate = (EditText) findViewById(R.id.et_only_framerate);
-        et_only_scale = (EditText) findViewById(R.id.et_only_scale);
-
-
-        spinner_record = (Spinner) findViewById(R.id.spinner_record);
-        spinner_need_full = (Spinner) findViewById(R.id.spinner_need_full);
+        tv_size = findViewById(R.id.tv_size);
+        et_width = findViewById(R.id.et_width);
+        et_height = findViewById(R.id.et_height);
+        et_max_frame_rate = findViewById(R.id.et_maxframerate);
+        et_bitrate = findViewById(R.id.et_record_bitrate);
+        et_max_time = findViewById(R.id.et_maxtime);
+        et_min_time = findViewById(R.id.et_mintime);
+        et_only_frame_rate = findViewById(R.id.et_only_framerate);
+        et_only_scale = findViewById(R.id.et_only_scale);
 
 
-        i_only_compress = findViewById(R.id.i_only_compress);
-        rg_only_compress_mode = (RadioGroup) i_only_compress.findViewById(R.id.rg_mode);
-        ll_only_compress_crf = (LinearLayout) i_only_compress.findViewById(R.id.ll_crf);
-        et_only_compress_crfSize = (EditText) i_only_compress.findViewById(R.id.et_crfSize);
-        ll_only_compress_bitrate = (LinearLayout) i_only_compress.findViewById(R.id.ll_bitrate);
-        et_only_compress_maxbitrate = (EditText) i_only_compress.findViewById(R.id.et_maxbitrate);
-        tv_only_compress_maxbitrate = (TextView) i_only_compress.findViewById(R.id.tv_maxbitrate);
-        et_only_compress_bitrate = (EditText) i_only_compress.findViewById(R.id.et_bitrate);
+        spinner_record = findViewById(R.id.spinner_record);
+        spinner_need_full = findViewById(R.id.spinner_need_full);
 
-        spinner_only_compress = (Spinner) findViewById(R.id.spinner_only_compress);
-
-        bt_start = (Button) findViewById(R.id.bt_start);
+        rg_camera = findViewById(R.id.rg_camera);
 
 
+        View i_only_compress = findViewById(R.id.i_only_compress);
+        rg_only_compress_mode = i_only_compress.findViewById(R.id.rg_mode);
+        ll_only_compress_crf = i_only_compress.findViewById(R.id.ll_crf);
+        et_only_compress_crfSize = i_only_compress.findViewById(R.id.et_crfSize);
+        ll_only_compress_bitrate = i_only_compress.findViewById(R.id.ll_bitrate);
+        et_only_compress_max_bitrate = i_only_compress.findViewById(R.id.et_maxbitrate);
+        tv_only_compress_max_bitrate = i_only_compress.findViewById(R.id.tv_maxbitrate);
+        et_only_compress_bitrate = i_only_compress.findViewById(R.id.et_bitrate);
+
+        spinner_only_compress = findViewById(R.id.spinner_only_compress);
     }
 
     /**
      * 选择本地视频，为了方便我采取了系统的API，所以也许在一些定制机上会取不到视频地址，
      * 所以选择手机里视频的代码根据自己业务写为妙。
-     *
-     * @param v
      */
     public void choose(View v) {
-
         Intent it = new Intent(Intent.ACTION_GET_CONTENT,
                 android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
 
@@ -224,19 +238,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void go(View c) {
-
         String width = et_width.getText().toString();
         String height = et_height.getText().toString();
-        String maxFramerate = et_maxframerate.getText().toString();
+        String max_frame_rate = et_max_frame_rate.getText().toString();
         String bitrate = et_bitrate.getText().toString();
-        String maxTime = et_maxtime.getText().toString();
-        String minTime = et_mintime.getText().toString();
+        String maxTime = et_max_time.getText().toString();
+        String minTime = et_min_time.getText().toString();
         String s = spinner_need_full.getSelectedItem().toString();
         boolean needFull = Boolean.parseBoolean(s);
 
         BaseMediaBitrateConfig recordMode;
-        BaseMediaBitrateConfig compressMode = null;
-
 
         recordMode = new AutoVBRMode();
 
@@ -249,26 +260,26 @@ public class MainActivity extends AppCompatActivity {
         }
         if (
                 checkStrEmpty(height, "请输入高度")
-                        || checkStrEmpty(maxFramerate, "请输入最高帧率")
+                        || checkStrEmpty(max_frame_rate, "请输入最高帧率")
                         || checkStrEmpty(maxTime, "请输入最大录制时间")
                         || checkStrEmpty(minTime, "请输小最大录制时间")
                         || checkStrEmpty(bitrate, "请输入比特率")
                 ) {
             return;
         }
-//      FFMpegUtils.captureThumbnails("/storage/emulated/0/DCIM/mabeijianxi/1496455533800/1496455533800.mp4", "/storage/emulated/0/DCIM/mabeijianxi/1496455533800/1496455533800.jpg", "1");
 
-        MediaRecorderConfig config = new MediaRecorderConfig.Buidler()
+        MediaRecorderConfig config = new MediaRecorderConfig.Builder()
                 .fullScreen(needFull)
                 .smallVideoWidth(needFull ? 0 : Integer.valueOf(width))
                 .smallVideoHeight(Integer.valueOf(height))
                 .recordTimeMax(Integer.valueOf(maxTime))
                 .recordTimeMin(Integer.valueOf(minTime))
-                .maxFrameRate(Integer.valueOf(maxFramerate))
+                .maxFrameRate(Integer.valueOf(max_frame_rate))
                 .videoBitrate(Integer.valueOf(bitrate))
                 .captureThumbnailsTime(1)
+                .cameraType(currentCamera)
                 .build();
-        MediaRecorderActivity.goSmallVideoRecorder(this, SendSmallVideoActivity.class.getName(), config);
+        UVCMediaRecorderActivity.goUVCSmallVideoRecorder(this, SendSmallVideoActivity.class.getName(), config);
 
     }
 
@@ -294,9 +305,9 @@ public class MainActivity extends AppCompatActivity {
             //
             if (resultCode == RESULT_OK && data != null && data.getData() != null) {
                 Uri uri = data.getData();
-                String[] proj = {MediaStore.Images.Media.DATA, MediaStore.Images.Media.MIME_TYPE};
+                String[] pro = {MediaStore.Images.Media.DATA, MediaStore.Images.Media.MIME_TYPE};
 
-                Cursor cursor = getContentResolver().query(uri, proj, null,
+                Cursor cursor = getContentResolver().query(uri, pro, null,
                         null, null);
                 if (cursor != null && cursor.moveToFirst()) {
                     int _data_num = cursor.getColumnIndex(MediaStore.Images.Media.DATA);
@@ -323,7 +334,7 @@ public class MainActivity extends AppCompatActivity {
                                 compressMode = new AutoVBRMode(Integer.valueOf(crfSize));
                             }
                         } else if (compressModeCheckedId == R.id.rb_vbr) {
-                            String maxBitrate = et_only_compress_maxbitrate.getText().toString();
+                            String maxBitrate = et_only_compress_max_bitrate.getText().toString();
                             String bitrate = et_only_compress_bitrate.getText().toString();
 
                             if (checkStrEmpty(maxBitrate, "请输入压缩最大码率") || checkStrEmpty(bitrate, "请输入压缩额定码率")) {
@@ -338,7 +349,7 @@ public class MainActivity extends AppCompatActivity {
                             compressMode.setVelocity(spinner_only_compress.getSelectedItem().toString());
                         }
 
-                        String sRate = et_only_framerate.getText().toString();
+                        String sRate = et_only_frame_rate.getText().toString();
                         String scale = et_only_scale.getText().toString();
                         int iRate = 0;
                         float fScale = 0;
@@ -348,8 +359,8 @@ public class MainActivity extends AppCompatActivity {
                         if (!TextUtils.isEmpty(scale)) {
                             fScale = Float.valueOf(scale);
                         }
-                        LocalMediaConfig.Buidler buidler = new LocalMediaConfig.Buidler();
-                        final LocalMediaConfig config = buidler
+                        LocalMediaConfig.Buidler builder = new LocalMediaConfig.Buidler();
+                        final LocalMediaConfig config = builder
                                 .setVideoPath(_data)
                                 .captureThumbnailsTime(1)
                                 .doH264Compress(compressMode)
@@ -381,6 +392,10 @@ public class MainActivity extends AppCompatActivity {
                     } else {
                         Toast.makeText(this, "选择的不是视频或者地址错误,也可能是这种方式定制神机取不到！", Toast.LENGTH_SHORT).show();
                     }
+                }
+
+                if (cursor != null) {
+                    cursor.close();
                 }
             }
         }
@@ -414,20 +429,20 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public static void initSmallVideo() {
+    private void initVideo() {
         // 设置拍摄视频缓存路径
-        File dcim = Environment
+        File dir = Environment
                 .getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM);
         if (DeviceUtils.isZte()) {
-            if (dcim.exists()) {
-                JianXiCamera.setVideoCachePath(dcim + "/mabeijianxi/");
+            if (dir.exists()) {
+                JianXiCamera.setVideoCachePath(dir + "/cxyVideoRecording/");
             } else {
-                JianXiCamera.setVideoCachePath(dcim.getPath().replace("/sdcard/",
+                JianXiCamera.setVideoCachePath(dir.getPath().replace("/sdcard/",
                         "/sdcard-ext/")
-                        + "/mabeijianxi/");
+                        + "/cxyVideoRecording/");
             }
         } else {
-            JianXiCamera.setVideoCachePath(dcim + "/mabeijianxi/");
+            JianXiCamera.setVideoCachePath(dir + "/cxyVideoRecording/");
         }
         // 初始化拍摄
         JianXiCamera.initialize(false, null);

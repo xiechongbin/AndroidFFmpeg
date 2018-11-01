@@ -9,14 +9,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.MotionEvent;
-import android.view.SurfaceView;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.CheckBox;
 import android.widget.CheckedTextView;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +22,7 @@ import android.widget.Toast;
 
 import com.mabeijianxi.smallvideorecord2.model.MediaObject;
 import com.mabeijianxi.smallvideorecord2.model.MediaRecorderConfig;
+import com.serenegiant.usb.widget.UVCCameraTextureView;
 
 import java.io.File;
 
@@ -33,7 +32,7 @@ import static com.mabeijianxi.smallvideorecord2.R.id.bottom_layout;
 /**
  * 视频录制
  */
-public class MediaRecorderActivity extends Activity implements
+public class UVCMediaRecorderActivity extends Activity implements
         MediaRecorderBase.OnErrorListener, OnClickListener, MediaRecorderBase.OnPreparedListener,
         MediaRecorderBase.OnEncodeListener {
 
@@ -55,10 +54,7 @@ public class MediaRecorderActivity extends Activity implements
      * 下一步
      */
     private ImageView mTitleNext;
-    /**
-     * 前后摄像头切换
-     */
-    private CheckBox mCameraSwitch;
+
     /**
      * 回删按钮、延时按钮、滤镜按钮
      */
@@ -76,10 +72,7 @@ public class MediaRecorderActivity extends Activity implements
      * 底部条
      */
     private RelativeLayout mBottomLayout;
-    /**
-     * 摄像头数据显示画布
-     */
-    private SurfaceView mSurfaceView;
+
     /**
      * 录制进度
      */
@@ -135,13 +128,15 @@ public class MediaRecorderActivity extends Activity implements
     private boolean startState;
     private boolean NEED_FULL_SCREEN = false;
     private RelativeLayout title_layout;
+    private int cameraType;
+    private UVCCameraTextureView mUVCCameraView;
 
     /**
      * @param context
      * @param overGOActivityName 录制结束后需要跳转的Activity全类名
      */
-    public static void goSmallVideoRecorder(Activity context, String overGOActivityName, MediaRecorderConfig mediaRecorderConfig) {
-        context.startActivity(new Intent(context, MediaRecorderActivity.class).putExtra(OVER_ACTIVITY_NAME, overGOActivityName).putExtra(MEDIA_RECORDER_CONFIG_KEY, mediaRecorderConfig));
+    public static void goUVCSmallVideoRecorder(Activity context, String overGOActivityName, MediaRecorderConfig mediaRecorderConfig) {
+        context.startActivity(new Intent(context, UVCMediaRecorderActivity.class).putExtra(OVER_ACTIVITY_NAME, overGOActivityName).putExtra(MEDIA_RECORDER_CONFIG_KEY, mediaRecorderConfig));
     }
 
     @Override
@@ -150,6 +145,7 @@ public class MediaRecorderActivity extends Activity implements
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON); // 防止锁屏
         initData();
         loadViews();
+        initMediaRecorder();
     }
 
     private void initData() {
@@ -161,6 +157,7 @@ public class MediaRecorderActivity extends Activity implements
         NEED_FULL_SCREEN = mediaRecorderConfig.getFullScreen();
         RECORD_TIME_MAX = mediaRecorderConfig.getRecordTimeMax();
         RECORD_TIME_MIN = mediaRecorderConfig.getRecordTimeMin();
+        cameraType = mediaRecorderConfig.getCameraType();
         MediaRecorderBase.MAX_FRAME_RATE = mediaRecorderConfig.getMaxFrameRate();
         MediaRecorderBase.NEED_FULL_SCREEN = NEED_FULL_SCREEN;
         MediaRecorderBase.MIN_FRAME_RATE = mediaRecorderConfig.getMinFrameRate();
@@ -175,11 +172,9 @@ public class MediaRecorderActivity extends Activity implements
      * 加载视图
      */
     private void loadViews() {
-        setContentView(R.layout.activity_media_recorder);
+        setContentView(R.layout.activity_uvc_media_recorder);
         // ~~~ 绑定控件
-        mSurfaceView = findViewById(R.id.record_preview);
         title_layout = findViewById(R.id.title_layout);
-        mCameraSwitch = findViewById(R.id.record_camera_switcher);
         mTitleNext = findViewById(R.id.title_next);
         mProgressView = findViewById(R.id.record_progress);
         mRecordDelete = findViewById(R.id.record_delete);
@@ -187,66 +182,23 @@ public class MediaRecorderActivity extends Activity implements
         mBottomLayout = findViewById(bottom_layout);
         mRecordLed = findViewById(R.id.record_camera_led);
 
-        // ~~~ 绑定事件
-        /*if (DeviceUtils.hasICS())
-            mSurfaceView.setOnTouchListener(mOnSurfaveViewTouchListener);*/
-
         mTitleNext.setOnClickListener(this);
         findViewById(R.id.title_back).setOnClickListener(this);
-//        mRecordDelete.setOnClickListener(this);
+
         mRecordController.setOnTouchListener(mOnVideoControllerTouchListener);
 
         // ~~~ 设置数据
-
-        // 是否支持前置摄像头
-        if (MediaRecorderBase.isSupportFrontCamera()) {
-            mCameraSwitch.setOnClickListener(this);
-        } else {
-            mCameraSwitch.setVisibility(View.GONE);
-        }
-        // 是否支持闪光灯
-        if (DeviceUtils.isSupportCameraLedFlash(getPackageManager())) {
-            mRecordLed.setOnClickListener(this);
-        } else {
-            mRecordLed.setVisibility(View.GONE);
-        }
-
+        mUVCCameraView = findViewById(R.id.uvc_preview);
 
         mProgressView.setMaxDuration(RECORD_TIME_MAX);
         mProgressView.setMinTime(RECORD_TIME_MIN);
     }
 
     /**
-     * 初始化画布
-     */
-    private void initSurfaceView() {
-        if (NEED_FULL_SCREEN) {
-            mBottomLayout.setBackgroundColor(0);
-            title_layout.setBackgroundColor(getResources().getColor(R.color.full_title_color));
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mSurfaceView
-                    .getLayoutParams();
-            lp.setMargins(0, 0, 0, 0);
-            mSurfaceView.setLayoutParams(lp);
-            mProgressView.setBackgroundColor(getResources().getColor(R.color.full_progress_color));
-        } else {
-            final int w = DeviceUtils.getScreenWidth(this);
-            ((RelativeLayout.LayoutParams) mBottomLayout.getLayoutParams()).topMargin = (int) (w / (MediaRecorderBase.SMALL_VIDEO_HEIGHT / (MediaRecorderBase.SMALL_VIDEO_WIDTH * 1.0f)));
-            int width = w;
-            int height = (int) (w * ((MediaRecorderBase.mSupportedPreviewWidth * 1.0f) / MediaRecorderBase.SMALL_VIDEO_HEIGHT));
-            //
-            FrameLayout.LayoutParams lp = (FrameLayout.LayoutParams) mSurfaceView
-                    .getLayoutParams();
-            lp.width = width;
-            lp.height = height;
-            mSurfaceView.setLayoutParams(lp);
-        }
-    }
-
-    /**
      * 初始化拍摄SDK
      */
     private void initMediaRecorder() {
-        mMediaRecorder = new MediaRecorderNative();
+        mMediaRecorder = new UVCMediaRecorderNative(this, mUVCCameraView);
 
         mMediaRecorder.setOnErrorListener(this);
         mMediaRecorder.setOnEncodeListener(this);
@@ -259,7 +211,7 @@ public class MediaRecorderActivity extends Activity implements
         String key = String.valueOf(System.currentTimeMillis());
         mMediaObject = mMediaRecorder.setOutputDirectory(key,
                 JianXiCamera.getVideoCachePath() + key);
-        mMediaRecorder.setSurfaceHolder(mSurfaceView.getHolder());
+        // mMediaRecorder.setSurfaceHolder(mSurfaceView.getHolder());
         mMediaRecorder.prepare();
     }
 
@@ -381,7 +333,6 @@ public class MediaRecorderActivity extends Activity implements
                     RECORD_TIME_MAX - mMediaObject.getDuration());
         }
 //        mRecordDelete.setVisibility(View.GONE);
-        mCameraSwitch.setEnabled(false);
         mRecordLed.setEnabled(false);
     }
 
@@ -435,7 +386,6 @@ public class MediaRecorderActivity extends Activity implements
 
 
 //        mRecordDelete.setVisibility(View.VISIBLE);
-        mCameraSwitch.setEnabled(true);
         mRecordLed.setEnabled(true);
 
         mHandler.removeMessages(HANDLE_STOP_RECORD);
@@ -550,12 +500,6 @@ public class MediaRecorderActivity extends Activity implements
         if (!isFinishing() && mMediaObject != null) {
             duration = mMediaObject.getDuration();
             if (duration < RECORD_TIME_MIN) {
-                if (duration == 0) {
-                    mCameraSwitch.setVisibility(View.VISIBLE);
-//                    mRecordDelete.setVisibility(View.GONE);
-                } else {
-                    mCameraSwitch.setVisibility(View.GONE);
-                }
                 // 视频必须大于3秒
                 if (mTitleNext.getVisibility() != View.INVISIBLE)
                     mTitleNext.setVisibility(View.INVISIBLE);
@@ -610,9 +554,9 @@ public class MediaRecorderActivity extends Activity implements
         Intent intent = null;
         try {
             intent = new Intent(this, Class.forName(getIntent().getStringExtra(OVER_ACTIVITY_NAME)));
-            intent.putExtra(MediaRecorderActivity.OUTPUT_DIRECTORY, mMediaObject.getOutputDirectory());
-            intent.putExtra(MediaRecorderActivity.VIDEO_URI, mMediaObject.getOutputTempTranscodingVideoPath());
-            intent.putExtra(MediaRecorderActivity.VIDEO_SCREENSHOT, mMediaObject.getOutputVideoThumbPath());
+            intent.putExtra(UVCMediaRecorderActivity.OUTPUT_DIRECTORY, mMediaObject.getOutputDirectory());
+            intent.putExtra(UVCMediaRecorderActivity.VIDEO_URI, mMediaObject.getOutputTempTranscodingVideoPath());
+            intent.putExtra(UVCMediaRecorderActivity.VIDEO_SCREENSHOT, mMediaObject.getOutputVideoThumbPath());
             intent.putExtra("go_home", GO_HOME);
             startActivity(intent);
         } catch (ClassNotFoundException e) {
@@ -645,7 +589,6 @@ public class MediaRecorderActivity extends Activity implements
 
     @Override
     public void onPrepared() {
-        initSurfaceView();
     }
 
     public void onFinished() {
