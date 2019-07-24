@@ -1,7 +1,9 @@
 <resources>
-    <string name="app_name">FFmpegDemo</string>
+    <string name="app_name">FFmpeg</string>
 
-    <string name="hint">提示</string>
+    <string name="hint">请输入命令</string>
+    <string name="invoke">执行一下</string>
+
     <string name="dialog_yes">是</string>
     <string name="dialog_no">否</string>
     <string name="action_back">返回</string>
