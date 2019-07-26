@@ -8,7 +8,8 @@ add_library(
         src/main/cpp/include/ffmpeg_hw.c
         src/main/cpp/include/ffmpeg_opt.c
         src/main/cpp/include/ffmpeg_filter.c
-)
+        src/main/cpp/xx_ffmpeg.c
+ )
 
 add_library(
         avcodec
@@ -59,6 +60,12 @@ add_library(
         IMPORTED
 )
 
+add_library(
+        x264
+        SHARED
+        IMPORTED
+)
+
 
 if (${ANDROID_ABI} STREQUAL "armeabi")
     set_target_properties(
@@ -105,6 +112,12 @@ if (${ANDROID_ABI} STREQUAL "armeabi")
             swscale
             PROPERTIES IMPORTED_LOCATION
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi/libswscale.so
+    )
+
+    set_target_properties(
+            x264
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi/libx264.so
     )
 endif (${ANDROID_ABI} STREQUAL "armeabi")
 
@@ -159,6 +172,12 @@ if (${ANDROID_ABI} STREQUAL "armeabi-v7a")
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a/libswscale.so
     )
 
+    set_target_properties(
+            x264
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a/libx264.so
+    )
+
 endif (${ANDROID_ABI} STREQUAL "armeabi-v7a")
 
 if (${ANDROID_ABI} STREQUAL "arm64-v8a")
@@ -208,6 +227,12 @@ if (${ANDROID_ABI} STREQUAL "arm64-v8a")
             swscale
             PROPERTIES IMPORTED_LOCATION
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/arm64-v8a/libswscale.so
+    )
+
+    set_target_properties(
+            x264
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/arm64-v8a/libx264.so
     )
 
 endif (${ANDROID_ABI} STREQUAL "arm64-v8a")
@@ -260,6 +285,12 @@ if (${ANDROID_ABI} STREQUAL "x86")
             PROPERTIES IMPORTED_LOCATION
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86/libswscale.so
     )
+
+    set_target_properties(
+            x264
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86/libx264.so
+    )
 endif (${ANDROID_ABI} STREQUAL "x86")
 
 if (${ANDROID_ABI} STREQUAL "x86_64")
@@ -311,6 +342,13 @@ if (${ANDROID_ABI} STREQUAL "x86_64")
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86_64/libswscale.so
     )
 
+
+    set_target_properties(
+            x264
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86_64/libx264.so
+    )
+
 endif (${ANDROID_ABI} STREQUAL "x86_64")
 
 include_directories(
@@ -332,4 +370,5 @@ target_link_libraries(
         postproc
         swresample
         swscale
+        x264
         ${log-lib})
