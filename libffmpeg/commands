@@ -1,0 +1,8 @@
+压缩视频
+"ffmpeg -y -i /storage/emulated/0/in.mp4 -b 2097k -r 30 -vcodec libx264 -preset superfast /storage/emulated/0/a.mp4";
+压缩视频
+"ffmpeg -i /storage/emulated/0/in.mp4 /storage/emulated/0/out.mp4";
+剪切视频
+ffmpeg -i input.wmv -ss 00:00:30.0 -c copy -t 00:00:10.0 output.wmv
+ffmpeg -i input.wmv -ss 30 -c copy -t 10 output.wmv
+ffmpeg -i input.wmv -ss 30 -c copy -to 40 output.wmv

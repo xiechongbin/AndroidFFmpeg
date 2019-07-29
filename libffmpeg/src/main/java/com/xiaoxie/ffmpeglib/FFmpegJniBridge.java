@@ -1,9 +1,13 @@
 package com.xiaoxie.ffmpeglib;
 
+import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
+
 /**
  * Created by xcb on 2019/7/25.
  */
 public class FFmpegJniBridge {
+    private static final String TAG = FFmpegJniBridge.class.getSimpleName();
+
     static {
         System.loadLibrary("ffmpeg_jni");
         System.loadLibrary("avcodec");
@@ -18,8 +22,9 @@ public class FFmpegJniBridge {
         System.loadLibrary("x264");
     }
 
-    private static OnCmdExecListner listener;
+    private static OnCmdExecListener listener;
     private static long sDuration;
+    private static String outputPath;
 
     /**
      * 获取ffmpeg版本
@@ -42,8 +47,15 @@ public class FFmpegJniBridge {
     public static native int invokeCommandSync(String[] commands);
 
 
-    public static void invokeCommandSync(String[] commands, long duration, OnCmdExecListner onCmdExecListner) {
-        listener = onCmdExecListner;
+    public static void invokeCommandSync(CmdList cmdList, long duration, OnCmdExecListener onCmdExecListener) {
+        listener = onCmdExecListener;
+        sDuration = duration;
+        String[] commands = cmdList.toArray(new String[cmdList.size()]);
+        invokeCommandSync(commands);
+    }
+
+    public static void invokeCommandSync(String[] commands, long duration, OnCmdExecListener onCmdExecListener) {
+        listener = onCmdExecListener;
         sDuration = duration;
         invokeCommandSync(commands);
     }
@@ -55,7 +67,7 @@ public class FFmpegJniBridge {
         if (listener != null) {
             if (ret == 0) {
                 listener.onProgress(sDuration);
-                listener.onSuccess();
+                listener.onSuccess(outputPath);
             } else {
                 listener.onFailure();
             }
@@ -74,6 +86,6 @@ public class FFmpegJniBridge {
     }
 
     public void test(int i) {
-        System.out.println("i________________ = " + i);
+        System.out.println("c_to_java test i = " + i);
     }
 }

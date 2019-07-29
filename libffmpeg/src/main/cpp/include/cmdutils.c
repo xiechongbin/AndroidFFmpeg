@@ -66,6 +66,7 @@
 
 #include <sys/time.h>
 #include <sys/resource.h>
+#include <pthread.h>
 
 #endif
 #ifdef _WIN32
@@ -133,11 +134,10 @@ void register_exit(void (*cb)(int ret)) {
     program_exit = cb;
 }
 
-int exit_program(int ret) {
-    //if (program_exit)
-    //    program_exit(ret);
-    //exit(ret);
-    return ret;
+void exit_program(int ret) {
+    if (program_exit)
+        program_exit(ret);
+    pthread_exit("all thread");
 }
 
 double parse_number_or_die(const char *context, const char *numstr, int type,
@@ -439,12 +439,9 @@ int locate_option(int argc, char **argv, const OptionDef *options,
                   const char *optname) {
     const OptionDef *po;
     int i;
-    LOGE("locate_option 454 argc= %d", argc);
     for (i = 1; i < argc; i++) {
         const char *cur_opt = argv[i];
-        LOGE("cur_opt = %s",cur_opt);
         if (*cur_opt++ != '-') {
-            LOGE("locate_option 447");
             continue;
         }
         po = find_option(options, cur_opt);

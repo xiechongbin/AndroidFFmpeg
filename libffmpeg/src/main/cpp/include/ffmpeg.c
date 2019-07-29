@@ -4897,9 +4897,10 @@ int ffmpeg_exec(int argc, char **argv) {
     init_dynload();
 
     register_exit(ffmpeg_cleanup);
-    LOGE("argc = %d",argc);
-    LOGE("argv = %c",argv);
-    LOGE("4900");
+    LOGE("argc = %d", argc);
+    for (int i = 0; i < argc; i++) {
+        LOGE("argv[%d] = %s", i,argv[i]);
+    }
     setvbuf(stderr, NULL, _IONBF, 0); /* win32 runtime needs this */
 
     av_log_set_flags(AV_LOG_SKIP_REPEATED);
@@ -4919,18 +4920,19 @@ int ffmpeg_exec(int argc, char **argv) {
     avformat_network_init();
 
     show_banner(argc, argv, options);
-
+    LOGE("4922");
     /* parse options and open all input/output files */
     ret = ffmpeg_parse_options(argc, argv);
+    LOGE("4925");
     if (ret < 0)
-        // exit_program(1);
+        exit_program(1);
 
-        if (nb_output_files <= 0 && nb_input_files == 0) {
-            show_usage();
-            av_log(NULL, AV_LOG_WARNING, "Use -h to get full help or, even better, run 'man %s'\n",
-                   program_name);
-            // exit_program(1);
-        }
+    if (nb_output_files <= 0 && nb_input_files == 0) {
+        show_usage();
+        av_log(NULL, AV_LOG_WARNING, "Use -h to get full help or, even better, run 'man %s'\n",
+               program_name);
+        // exit_program(1);
+    }
     /* file converter / grab */
     if (nb_output_files <= 0) {
         av_log(NULL, AV_LOG_FATAL, "At least one output file must be specified\n");
@@ -4962,13 +4964,14 @@ int ffmpeg_exec(int argc, char **argv) {
         }
     av_log(NULL, AV_LOG_DEBUG, "%"PRIu64" frames successfully decoded, %"PRIu64" decoding errors\n",
            decode_error_stat[0], decode_error_stat[1]);
-    if ((decode_error_stat[0] + decode_error_stat[1]) * max_error_rate < decode_error_stat[1])
-        //exit_program(69);
+    // if ((decode_error_stat[0] + decode_error_stat[1]) * max_error_rate < decode_error_stat[1])
+    //exit_program(69);
 
-        //exit_program(received_nb_signals ? 255 : main_return_code);
+    //exit_program(received_nb_signals ? 255 : main_return_code);
 
 //重置状态
-        nb_filtergraphs = 0;
+
+    nb_filtergraphs = 0;
     nb_output_files = 0;
     nb_output_streams = 0;
     nb_input_files = 0;
