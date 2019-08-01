@@ -741,14 +741,14 @@ int split_commandline(OptionParseContext *octx, int argc, char *argv[],
 
     init_parse_context(octx, groups, nb_groups);
     av_log(NULL, AV_LOG_DEBUG, "Splitting the commandline.\n");
-
+    LOGE("Splitting the commandline.");
     while (optindex < argc) {
         const char *opt = argv[optindex++], *arg;
         const OptionDef *po;
         int ret;
 
         av_log(NULL, AV_LOG_DEBUG, "Reading option '%s' ...", opt);
-
+        LOGE("Reading option '%s' ...", opt);
         if (opt[0] == '-' && opt[1] == '-' && !opt[2]) {
             dashdash = optindex;
             continue;
@@ -757,6 +757,7 @@ int split_commandline(OptionParseContext *octx, int argc, char *argv[],
         if (opt[0] != '-' || !opt[1] || dashdash + 1 == optindex) {
             finish_group(octx, 0, opt);
             av_log(NULL, AV_LOG_DEBUG, " matched as %s.\n", groups[0].name);
+            LOGE("matched as %s.\n", groups[0].name);
             continue;
         }
         opt++;
@@ -766,6 +767,7 @@ do {                                                                           \
     arg = argv[optindex++];                                                    \
     if (!arg) {                                                                \
         av_log(NULL, AV_LOG_ERROR, "Missing argument for option '%s'.\n", opt);\
+        LOGE("Missing argument for option '%s'.\n", opt);\
         return AVERROR(EINVAL);                                                \
     }                                                                          \
 } while (0)
@@ -776,6 +778,8 @@ do {                                                                           \
             finish_group(octx, ret, arg);
             av_log(NULL, AV_LOG_DEBUG, " matched as %s with argument '%s'.\n",
                    groups[ret].name, arg);
+            LOGE(" matched as %s with argument '%s'.\n",
+                 groups[ret].name, arg);
             continue;
         }
 
@@ -794,6 +798,8 @@ do {                                                                           \
             add_opt(octx, po, opt, arg);
             av_log(NULL, AV_LOG_DEBUG, " matched as option '%s' (%s) with "
                                        "argument '%s'.\n", po->name, po->help, arg);
+            LOGE(" matched as option '%s' (%s) with "
+                 "argument '%s'.\n", po->name, po->help, arg);
             continue;
         }
 
@@ -803,11 +809,16 @@ do {                                                                           \
             if (ret >= 0) {
                 av_log(NULL, AV_LOG_DEBUG, " matched as AVOption '%s' with "
                                            "argument '%s'.\n", opt, argv[optindex]);
+                LOGE(" matched as AVOption '%s' with "
+                     "argument '%s'.\n", opt, argv[optindex]);
                 optindex++;
                 continue;
             } else if (ret != AVERROR_OPTION_NOT_FOUND) {
                 av_log(NULL, AV_LOG_ERROR, "Error parsing option '%s' "
                                            "with argument '%s'.\n", opt, argv[optindex]);
+
+                LOGE ("Error parsing option '%s' "
+                      "with argument '%s'.\n", opt, argv[optindex]);
                 return ret;
             }
         }
@@ -819,19 +830,26 @@ do {                                                                           \
             add_opt(octx, po, opt, "0");
             av_log(NULL, AV_LOG_DEBUG, " matched as option '%s' (%s) with "
                                        "argument 0.\n", po->name, po->help);
+            LOGE (" matched as option '%s' (%s) with "
+                  "argument 0.\n", po->name, po->help);
             continue;
         }
 
         av_log(NULL, AV_LOG_ERROR, "Unrecognized option '%s'.\n", opt);
+        LOGE("Unrecognized option '%s'.\n", opt);
         return AVERROR_OPTION_NOT_FOUND;
     }
 
-    if (octx->cur_group.nb_opts || codec_opts || format_opts || resample_opts)
+    if (octx->cur_group.nb_opts || codec_opts || format_opts || resample_opts) {
         av_log(NULL, AV_LOG_WARNING, "Trailing options were found on the "
                                      "commandline.\n");
+        LOGE("Trailing options were found on the "
+             "commandline.\n");
 
+
+    }
     av_log(NULL, AV_LOG_DEBUG, "Finished splitting the commandline.\n");
-
+    LOGE("Finished splitting the commandline.");
     return 0;
 }
 

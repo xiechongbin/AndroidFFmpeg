@@ -66,6 +66,13 @@ add_library(
         IMPORTED
 )
 
+add_library(
+        fdk-aac
+        SHARED
+        IMPORTED
+)
+
+
 
 if (${ANDROID_ABI} STREQUAL "armeabi")
     set_target_properties(
@@ -118,6 +125,12 @@ if (${ANDROID_ABI} STREQUAL "armeabi")
             x264
             PROPERTIES IMPORTED_LOCATION
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi/libx264.so
+    )
+
+    set_target_properties(
+            fdk-aac
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi/libfak-aac.so
     )
 endif (${ANDROID_ABI} STREQUAL "armeabi")
 
@@ -178,6 +191,12 @@ if (${ANDROID_ABI} STREQUAL "armeabi-v7a")
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a/libx264.so
     )
 
+    set_target_properties(
+            fdk-aac
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a/libfdk-aac.so
+    )
+
 endif (${ANDROID_ABI} STREQUAL "armeabi-v7a")
 
 if (${ANDROID_ABI} STREQUAL "arm64-v8a")
@@ -235,6 +254,12 @@ if (${ANDROID_ABI} STREQUAL "arm64-v8a")
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/arm64-v8a/libx264.so
     )
 
+    set_target_properties(
+            fdk-aac
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/arm64-v8a/libfdk-aac.so
+    )
+
 endif (${ANDROID_ABI} STREQUAL "arm64-v8a")
 
 if (${ANDROID_ABI} STREQUAL "x86")
@@ -290,6 +315,12 @@ if (${ANDROID_ABI} STREQUAL "x86")
             x264
             PROPERTIES IMPORTED_LOCATION
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86/libx264.so
+    )
+
+    set_target_properties(
+            fdk-aac
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86/libfdk-aac.so
     )
 endif (${ANDROID_ABI} STREQUAL "x86")
 
@@ -349,6 +380,12 @@ if (${ANDROID_ABI} STREQUAL "x86_64")
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86_64/libx264.so
     )
 
+    set_target_properties(
+            fdk-aac
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86_64/libfdk-aac.so
+    )
+
 endif (${ANDROID_ABI} STREQUAL "x86_64")
 
 include_directories(
@@ -371,4 +408,5 @@ target_link_libraries(
         swresample
         swscale
         x264
+        fdk-aac
         ${log-lib})

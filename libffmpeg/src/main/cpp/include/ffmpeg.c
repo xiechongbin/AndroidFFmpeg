@@ -4899,7 +4899,7 @@ int ffmpeg_exec(int argc, char **argv) {
     register_exit(ffmpeg_cleanup);
     LOGE("argc = %d", argc);
     for (int i = 0; i < argc; i++) {
-        LOGE("argv[%d] = %s", i,argv[i]);
+        LOGE("argv[%d] = %s", i, argv[i]);
     }
     setvbuf(stderr, NULL, _IONBF, 0); /* win32 runtime needs this */
 
@@ -4923,7 +4923,7 @@ int ffmpeg_exec(int argc, char **argv) {
     LOGE("4922");
     /* parse options and open all input/output files */
     ret = ffmpeg_parse_options(argc, argv);
-    LOGE("4925");
+    LOGE("4925 ret = %d", ret);
     if (ret < 0)
         exit_program(1);
 
@@ -4936,13 +4936,13 @@ int ffmpeg_exec(int argc, char **argv) {
     /* file converter / grab */
     if (nb_output_files <= 0) {
         av_log(NULL, AV_LOG_FATAL, "At least one output file must be specified\n");
-        // exit_program(1);
+        exit_program(1);
     }
 
-//     if (nb_input_files == 0) {
-//         av_log(NULL, AV_LOG_FATAL, "At least one input file must be specified\n");
-//         exit_program(1);
-//     }
+    if (nb_input_files == 0) {
+        av_log(NULL, AV_LOG_FATAL, "At least one input file must be specified\n");
+        exit_program(1);
+    }
 
     for (i = 0; i < nb_output_files; i++) {
         if (strcmp(output_files[i]->ctx->oformat->name, "rtp"))
