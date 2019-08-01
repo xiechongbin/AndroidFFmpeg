@@ -2,14 +2,36 @@ package com.xiaoxie.ffmpeglib.utils;
 
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
+import android.os.Environment;
+import android.text.TextUtils;
+import android.util.Log;
 
+import java.io.File;
 import java.io.IOException;
+import java.io.RandomAccessFile;
+import java.util.List;
 import java.util.Locale;
 
 /**
  * Created by xcb on 2019/7/31.
  */
 public class VideoUtils {
+    public static final String TAG = "xxffmpeg";
+    public static String defaultPath;
+
+    public static void initDefaultPath() {
+        defaultPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/xxffmpeg/";
+        File file = new File(defaultPath);
+        try {
+            if (!file.exists()) {
+                file.mkdir();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     /**
      * @param videoPath 视频路径
      * @param scale     缩放比例 大于1有效
@@ -61,5 +83,46 @@ public class VideoUtils {
             e.printStackTrace();
         }
         return length;
+    }
+
+    /**
+     * 创建视频合并txt文档
+     *
+     * @param videos 视频集合
+     * @return 文件路径
+     */
+    public static String createMergeFile(List<String> videos) {
+        String fileName = "ffmpeg_concat.txt";
+        //先创建文件夹
+        if (TextUtils.isEmpty(defaultPath) || !new File(defaultPath).exists()) {
+            initDefaultPath();
+        }
+        try {
+            String filePath = defaultPath + fileName;
+            File file = new File(filePath);
+            if (file.exists()) {
+                if (file.delete()) {
+                    Log.d(TAG, "清除旧文件成功");
+                }
+            }
+            File newFile = new File(filePath);
+            if (newFile.createNewFile()) {
+                Log.d(TAG, "创建新文件成功");
+            }
+            StringBuilder builder = new StringBuilder();
+            for (String video : videos) {
+                builder.append("file ").append(video).append("\r\n");
+            }
+
+            RandomAccessFile accessFile = new RandomAccessFile(newFile, "rw");
+            accessFile.seek(file.length());
+            accessFile.write(builder.toString().getBytes());
+            accessFile.close();
+            return filePath;
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 }

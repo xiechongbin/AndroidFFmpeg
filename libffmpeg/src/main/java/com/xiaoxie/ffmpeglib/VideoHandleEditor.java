@@ -1,6 +1,5 @@
 package com.xiaoxie.ffmpeglib;
 
-import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
 
@@ -16,15 +15,6 @@ import java.io.File;
  * Created by xcb on 2019/7/29.
  */
 public class VideoHandleEditor {
-    private static String defaultPath;
-
-    public VideoHandleEditor() {
-        defaultPath = Environment.getExternalStorageDirectory().getAbsolutePath() + "/xxffmpeg/";
-    }
-
-    public String getDefaultPath() {
-        return defaultPath;
-    }
 
     /**
      * 视频剪切 从第start秒开始 剪切到第end秒位置
@@ -47,10 +37,11 @@ public class VideoHandleEditor {
             throw new IllegalArgumentException("原始视频不存在");
         }
         if (TextUtils.isEmpty(outputPath)) {
-            outputPath = defaultPath;
+            outputPath = VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4";
         }
         CmdList cmdList = new CmdList();
         cmdList.append("ffmpeg");
+        cmdList.append("-y");
         //关键帧技术，ffmpeg为了加速，会使用关键帧技术，所以有时剪切出来的结果在起止时间上未必准确。
         // 通常来说，把 -ss 选项放在 -i 之前，会使用关键帧技术； 把 -ss 选项放在 -i 之后，则不使用关键帧技术。
         // 如果要使用关键帧技术又要保留时间戳，可以加上 -copyts 选项：
@@ -108,11 +99,11 @@ public class VideoHandleEditor {
             throw new IllegalArgumentException("原始视频不存在");
         }
         if (TextUtils.isEmpty(outputPath)) {
-            outputPath = defaultPath;
+            outputPath = VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4";
         }
         CmdList cmdList = new CmdList();
         cmdList.append("ffmpeg");
-
+        cmdList.append("-y");
         if (useKeyframeTech) {
             cmdList.append("-ss");
             cmdList.append(start);
@@ -164,10 +155,11 @@ public class VideoHandleEditor {
             throw new IllegalArgumentException("原始视频不存在");
         }
         if (TextUtils.isEmpty(outputPath)) {
-            outputPath = defaultPath;
+            outputPath = VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4";
         }
         CmdList cmdList = new CmdList();
         cmdList.append("ffmpeg");
+        cmdList.append("-y");
         if (useKeyframeTech) {
             cmdList.append("-ss");
             cmdList.append(start);
@@ -209,7 +201,7 @@ public class VideoHandleEditor {
             throw new IllegalArgumentException("原始视频不存在");
         }
         if (TextUtils.isEmpty(outputVideo)) {
-            outputVideo = defaultPath;
+            outputVideo = VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4";
         }
         CmdList cmdList = new CmdList();
         cmdList.append("ffmpeg");
@@ -246,11 +238,12 @@ public class VideoHandleEditor {
             throw new IllegalArgumentException("原始视频不存在");
         }
         if (TextUtils.isEmpty(config.getOutputVideo())) {
-            config.setOutputVideo(defaultPath);
+            config.setOutputVideo(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
         }
 
         CmdList cmdList = new CmdList();
         cmdList.append("ffmpeg");
+        cmdList.append("-y");
         cmdList.append("-threads");
         cmdList.append(config.getThread());
         cmdList.append("-i");
@@ -298,5 +291,48 @@ public class VideoHandleEditor {
         Log.d("ffmpeg_log", cmdList.toString());
 
         FFmpegJniBridge.invokeCommandSync(cmdList, VideoUtils.getVideoLength(config.getInputVideo()), listener);
+    }
+
+    /**
+     * 无损合并视频 对需要合并的视频格式各项参数有严格要求，需要分辨率，帧率，码率都相同 否则合并失败
+     *
+     * @param config   视频合并配置
+     * @param listener 回调监听
+     */
+    public static void mergeVideosUndamage(VideoMergeConfig config, OnCmdExecListener listener) {
+        if (config == null) {
+            throw new IllegalArgumentException("config 为空");
+        }
+        if (config.getInputVideoList() == null || config.getInputVideoList().size() < 1) {
+            throw new IllegalArgumentException("输入视频错误");
+        }
+        if (TextUtils.isEmpty(config.getOutputVideo())) {
+            config.setOutputVideo(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
+        }
+        String filePath = VideoUtils.createMergeFile(config.getInputVideoList());
+        if (!new File(filePath).exists()) {
+            throw new IllegalArgumentException("视频合并txt文档不存在");
+        }
+        CmdList cmdList = new CmdList();
+        cmdList.append("ffmpeg");
+        cmdList.append("-y");
+        cmdList.append("-f");
+        cmdList.append("concat");
+        cmdList.append("-safe");
+        cmdList.append("0");
+        cmdList.append("-i");
+        cmdList.append(filePath);
+        cmdList.append("-c");
+        cmdList.append("copy");
+        cmdList.append(config.getOutputVideo());
+
+        Log.d("ffmpeg_log", cmdList.toString());
+
+        int videoLength = 0;
+        for (String s : config.getInputVideoList()) {
+            videoLength += VideoUtils.getVideoLength(s);
+        }
+
+        FFmpegJniBridge.invokeCommandSync(cmdList, videoLength, listener);
     }
 }

@@ -10,12 +10,16 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.xiaoxie.ffmpeglib.VideoHandleEditor;
+import com.xiaoxie.ffmpeglib.VideoMergeConfig;
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
 import com.xiaoxie.ffmpeglib.mode.AutoVBRMode;
 import com.xiaoxie.ffmpeglib.mode.CBRMode;
 import com.xiaoxie.ffmpeglib.mode.Mode;
 import com.xiaoxie.ffmpeglib.mode.Preset;
 import com.xiaoxie.ffmpeglib.mode.VBRMode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +30,8 @@ import permissions.dispatcher.RuntimePermissions;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, OnCmdExecListener {
     private static final String TAG = MainActivity.class.getSimpleName();
     private static final String inputPath = "/storage/emulated/0/in.mp4";
+    private static final String inputPath1 = "/storage/emulated/0/in1.mp4";
+    private static final String inputPath2 = "/storage/emulated/0/in2.mp4";
     private static final String outputPath = "/storage/emulated/0/out.mp4";
     private EditText ed_command;
     private Button btn_invoke;
@@ -35,6 +41,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout ll_do_compress_auto_vbr;
     private LinearLayout ll_do_compress_cbr;
     private LinearLayout ll_do_compress_vbr;
+    private LinearLayout ll_do_merge_undamage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_compress_auto_vbr = findViewById(R.id.ll_do_compress_auto_vbr);
         ll_do_compress_cbr = findViewById(R.id.ll_do_compress_cbr);
         ll_do_compress_vbr = findViewById(R.id.ll_do_compress_vbr);
+        ll_do_merge_undamage = findViewById(R.id.ll_do_merge_undamage);
         setListener();
         MainActivityPermissionsDispatcher.onClickWithPermissionCheck(this, 0);
     }
@@ -58,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_compress_auto_vbr.setOnClickListener(this);
         ll_do_compress_cbr.setOnClickListener(this);
         ll_do_compress_vbr.setOnClickListener(this);
+        ll_do_merge_undamage.setOnClickListener(this);
     }
 
     @Override
@@ -138,6 +147,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 dialog.show();
                 VideoHandleEditor.compressVideo(vbrModeConfig, this);
                 break;
+
+            case R.id.ll_do_merge_undamage:
+                if (dialog == null) {
+                    dialog = getDialog();
+                }
+                dialog.show();
+                VideoMergeConfig config = new VideoMergeConfig();
+                List<String> inputList = new ArrayList<>();
+                inputList.add(inputPath2);
+                inputList.add(inputPath);
+                config.setInputVideoList(inputList);
+                config.setOutputVideo("/storage/emulated/0/merge_undamage.mp4");
+                VideoHandleEditor.mergeVideosUndamage(config, this);
+                break;
         }
     }
 
@@ -152,18 +175,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onSuccess(String result) {
-        Log.d(TAG,"视频处理成功");
+        Log.d(TAG, "视频处理成功");
     }
 
     @Override
     public void onFailure() {
-        Log.d(TAG,"视频处理失败");
+        Log.d(TAG, "视频处理失败");
     }
 
     @Override
     public void onProgress(float progress) {
-        if(dialog != null && dialog.isShowing()){
-            dialog.setProgress((int) (progress*100));
+        if (dialog != null && dialog.isShowing()) {
+            dialog.setProgress((int) (progress * 100));
         }
     }
 }

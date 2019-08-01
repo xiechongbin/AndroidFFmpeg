@@ -6,3 +6,5 @@
 ffmpeg -i input.wmv -ss 00:00:30.0 -c copy -t 00:00:10.0 output.wmv
 ffmpeg -i input.wmv -ss 30 -c copy -t 10 output.wmv
 ffmpeg -i input.wmv -ss 30 -c copy -to 40 output.wmv
+无损合并视频
+ffmpeg -f concat -i filelist.txt -c copy output.mp4
