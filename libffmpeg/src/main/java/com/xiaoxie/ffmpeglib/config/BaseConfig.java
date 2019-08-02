@@ -23,7 +23,7 @@ public class BaseConfig {
     /**
      * 视频输出路径
      */
-    private String outputVideo;
+    private String outputPath;
 
     /**
      * 线程数
@@ -48,16 +48,16 @@ public class BaseConfig {
         return inputVideo == null ? "" : inputVideo;
     }
 
+    public String getOutputPath() {
+        return outputPath == null ? "" : outputPath;
+    }
+
+    public void setOutputPath(String outputPath) {
+        this.outputPath = outputPath;
+    }
+
     public void setInputVideo(String inputVideo) {
         this.inputVideo = inputVideo;
-    }
-
-    public String getOutputVideo() {
-        return outputVideo == null ? "" : outputVideo;
-    }
-
-    public void setOutputVideo(String outputVideo) {
-        this.outputVideo = outputVideo;
     }
 
     public int getThread() {

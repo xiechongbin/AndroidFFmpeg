@@ -6,10 +6,12 @@ import android.text.TextUtils;
 import android.util.Log;
 
 import com.xiaoxie.ffmpeglib.config.BGMConfig;
+import com.xiaoxie.ffmpeglib.config.BaseConfig;
 import com.xiaoxie.ffmpeglib.config.VideoCompressConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
+import com.xiaoxie.ffmpeglib.mode.Format;
 import com.xiaoxie.ffmpeglib.mode.Mode;
 import com.xiaoxie.ffmpeglib.mode.Preset;
 import com.xiaoxie.ffmpeglib.utils.VideoUtils;
@@ -245,8 +247,8 @@ public class VideoHandleEditor {
         if (!new File(config.getInputVideo()).exists()) {
             throw new IllegalArgumentException("原始视频不存在");
         }
-        if (TextUtils.isEmpty(config.getOutputVideo())) {
-            config.setOutputVideo(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
+        if (TextUtils.isEmpty(config.getOutputPath())) {
+            config.setOutputPath(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
         }
 
         CmdList cmdList = new CmdList();
@@ -295,7 +297,7 @@ public class VideoHandleEditor {
             cmdList.append(scaleWH);
         }
 
-        cmdList.append(config.getOutputVideo());
+        cmdList.append(config.getOutputPath());
         Log.d("ffmpeg_log", cmdList.toString());
 
         FFmpegJniBridge.invokeCommandSync(cmdList, VideoUtils.getVideoLength(config.getInputVideo()), listener);
@@ -314,8 +316,8 @@ public class VideoHandleEditor {
         if (config.getInputVideoList() == null || config.getInputVideoList().size() < 1) {
             throw new IllegalArgumentException("输入视频错误");
         }
-        if (TextUtils.isEmpty(config.getOutputVideo())) {
-            config.setOutputVideo(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
+        if (TextUtils.isEmpty(config.getOutputPath())) {
+            config.setOutputPath(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
         }
         String filePath = VideoUtils.createMergeFile(config.getInputVideoList());
         if (!new File(filePath).exists()) {
@@ -332,7 +334,7 @@ public class VideoHandleEditor {
         cmdList.append(filePath);
         cmdList.append("-c");
         cmdList.append("copy");
-        cmdList.append(config.getOutputVideo());
+        cmdList.append(config.getOutputPath());
 
         Log.d("ffmpeg_log", cmdList.toString());
 
@@ -357,8 +359,8 @@ public class VideoHandleEditor {
         if (config.getInputVideoList() == null || config.getInputVideoList().size() < 1) {
             throw new IllegalArgumentException("输入视频错误");
         }
-        if (TextUtils.isEmpty(config.getOutputVideo())) {
-            config.setOutputVideo(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
+        if (TextUtils.isEmpty(config.getOutputPath())) {
+            config.setOutputPath(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
         }
         List<String> videos = config.getInputVideoList();
 
@@ -434,7 +436,7 @@ public class VideoHandleEditor {
         cmdList.append(config.getBitRate() + "M");
         cmdList.append("-preset");
         cmdList.append(TextUtils.isEmpty(config.getPreset()) ? Preset.ULTRAFAST : config.getPreset());
-        cmdList.append(config.getOutputVideo());
+        cmdList.append(config.getOutputPath());
 
         int videoLength = 0;
         for (String s : config.getInputVideoList()) {
@@ -460,8 +462,8 @@ public class VideoHandleEditor {
         if (config.getAudioPath() == null) {
             throw new IllegalArgumentException("找不到音频文件");
         }
-        if (TextUtils.isEmpty(config.getOutputVideo())) {
-            config.setOutputVideo(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
+        if (TextUtils.isEmpty(config.getOutputPath())) {
+            config.setOutputPath(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
         }
         MediaExtractor mediaExtractor = new MediaExtractor();
         try {
@@ -507,8 +509,86 @@ public class VideoHandleEditor {
             cmdList.append("-map");
             cmdList.append("0:v:0");
         }
-        cmdList.append(config.getOutputVideo());
+        cmdList.append(config.getOutputPath());
         mediaExtractor.release();
+        Log.d("ffmpeg_log", cmdList.toString());
+        FFmpegJniBridge.invokeCommandSync(cmdList, VideoUtils.getVideoLength(config.getInputVideo()), listener);
+    }
+
+    /**
+     * 提取视频
+     *
+     * @param config   {@link BaseConfig}
+     * @param listener 回调监听
+     */
+    public static void separateVideo(BaseConfig config, OnCmdExecListener listener) {
+
+        if (config == null) {
+            throw new IllegalArgumentException("config 为空");
+        }
+        if (config.getInputVideo() == null) {
+            throw new IllegalArgumentException("输入视频错误");
+        }
+        if (TextUtils.isEmpty(config.getOutputPath())) {
+            config.setOutputPath(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
+        }
+        CmdList cmdList = new CmdList();
+        cmdList.append("ffmpeg");
+        cmdList.append("-y");
+        cmdList.append("-i");
+        cmdList.append(config.getInputVideo());
+        cmdList.append("-vcodec");
+        cmdList.append("copy");
+        cmdList.append("-an");
+
+        cmdList.append(config.getOutputPath());
+        Log.d("ffmpeg_log", cmdList.toString());
+        FFmpegJniBridge.invokeCommandSync(cmdList, VideoUtils.getVideoLength(config.getInputVideo()), listener);
+    }
+
+    /**
+     * 提取音频
+     *
+     * @param config   {@link BaseConfig}
+     * @param format   输出音频封装格式
+     * @param listener 回调监听
+     */
+    public static void separateAudio(BaseConfig config, String format, OnCmdExecListener listener) {
+        if (config == null) {
+            throw new IllegalArgumentException("config 为空");
+        }
+        if (config.getInputVideo() == null) {
+            throw new IllegalArgumentException("输入视频错误");
+        }
+        if (TextUtils.isEmpty(config.getOutputPath())) {
+            config.setOutputPath(VideoUtils.defaultPath + "/" + System.currentTimeMillis());
+        }
+        CmdList cmdList = new CmdList();
+        cmdList.append("ffmpeg");
+        cmdList.append("-y");
+        cmdList.append("-i");
+        cmdList.append(config.getInputVideo());
+
+        if (TextUtils.isEmpty(format)) {
+            //默认用mp3封装格式
+            format = Format.MP3;
+        }
+        if (format.equals(Format.MP3)) {
+            cmdList.append("-vn");
+            cmdList.append("-acodec");
+            cmdList.append("libmp3lame");
+
+        } else if (format.equals(Format.AAC)) {
+            cmdList.append("-vn");
+            cmdList.append("-acodec");
+            cmdList.append("libfdk_aac");
+        } else if (format.equals(Format.M4A)) {
+            cmdList.append("-acodec");
+            cmdList.append("copy");
+            cmdList.append("-vn");
+        }
+        cmdList.append(config.getOutputPath() + "." + format);
+
         Log.d("ffmpeg_log", cmdList.toString());
         FFmpegJniBridge.invokeCommandSync(cmdList, VideoUtils.getVideoLength(config.getInputVideo()), listener);
     }

@@ -10,15 +10,17 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.xiaoxie.ffmpeglib.VideoHandleEditor;
-import com.xiaoxie.ffmpeglib.config.BGMConfig;
-import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
-import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
-import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
 import com.xiaoxie.ffmpeglib.config.AutoVBRMode;
+import com.xiaoxie.ffmpeglib.config.BGMConfig;
+import com.xiaoxie.ffmpeglib.config.BaseConfig;
 import com.xiaoxie.ffmpeglib.config.CBRMode;
+import com.xiaoxie.ffmpeglib.config.VBRMode;
+import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
+import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
+import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
+import com.xiaoxie.ffmpeglib.mode.Format;
 import com.xiaoxie.ffmpeglib.mode.Mode;
 import com.xiaoxie.ffmpeglib.mode.Preset;
-import com.xiaoxie.ffmpeglib.config.VBRMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +48,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout ll_do_merge_undamage;
     private LinearLayout ll_do_merge_transcoding;
     private LinearLayout ll_do_add_bgm_music;
+    private LinearLayout ll_do_separate_video;
+    private LinearLayout ll_do_separate_audio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +65,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_merge_undamage = findViewById(R.id.ll_do_merge_undamage);
         ll_do_merge_transcoding = findViewById(R.id.ll_do_merge_transcoding);
         ll_do_add_bgm_music = findViewById(R.id.ll_do_add_bgm_music);
+        ll_do_separate_video = findViewById(R.id.ll_do_separate_video);
+        ll_do_separate_audio = findViewById(R.id.ll_do_separate_audio);
         setListener();
         MainActivityPermissionsDispatcher.onClickWithPermissionCheck(this, 0);
     }
@@ -75,6 +81,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_merge_undamage.setOnClickListener(this);
         ll_do_merge_transcoding.setOnClickListener(this);
         ll_do_add_bgm_music.setOnClickListener(this);
+        ll_do_separate_video.setOnClickListener(this);
+        ll_do_separate_audio.setOnClickListener(this);
     }
 
     @Override
@@ -113,7 +121,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_do_compress_auto_vbr:
                 AutoVBRMode auto_vbr_config = new AutoVBRMode();
                 auto_vbr_config.setInputVideo(inputPath);
-                auto_vbr_config.setOutputVideo("/storage/emulated/0/auto_vbr.mp4");
+                auto_vbr_config.setOutputPath("/storage/emulated/0/auto_vbr.mp4");
                 auto_vbr_config.setMode(Mode.AUTO_VBR);
                 auto_vbr_config.setCrfSize(21);
                 auto_vbr_config.setScale(1.2f);
@@ -129,7 +137,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_do_compress_cbr:
                 CBRMode cbrModeConfig = new CBRMode(166, 2097);
                 cbrModeConfig.setInputVideo(inputPath);
-                cbrModeConfig.setOutputVideo("/storage/emulated/0/cbr.mp4");
+                cbrModeConfig.setOutputPath("/storage/emulated/0/cbr.mp4");
                 cbrModeConfig.setScale(1.2f);
                 cbrModeConfig.setThread(16);
                 cbrModeConfig.setPreset(Preset.ULTRAFAST);
@@ -144,7 +152,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_do_compress_vbr:
                 VBRMode vbrModeConfig = new VBRMode(4000, 2097);
                 vbrModeConfig.setInputVideo(inputPath);
-                vbrModeConfig.setOutputVideo("/storage/emulated/0/vbr.mp4");
+                vbrModeConfig.setOutputPath("/storage/emulated/0/vbr.mp4");
                 vbrModeConfig.setScale(1.2f);
                 vbrModeConfig.setThread(16);
                 vbrModeConfig.setFrameRate(24);
@@ -166,7 +174,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 inputList.add(inputPath2);
                 inputList.add(inputPath);
                 config.setInputVideoList(inputList);
-                config.setOutputVideo("/storage/emulated/0/merge_lossless.mp4");
+                config.setOutputPath("/storage/emulated/0/merge_lossless.mp4");
                 VideoHandleEditor.mergeVideosLossLess(config, this);
                 break;
             case R.id.ll_do_merge_transcoding:
@@ -183,7 +191,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 videoMergeByTranscodeConfig.setHeight(1280);
                 videoMergeByTranscodeConfig.setBitRate(10);
                 videoMergeByTranscodeConfig.setFrameRate(24);
-                videoMergeByTranscodeConfig.setOutputVideo("/storage/emulated/0/merge_transcoding.mp4");
+                videoMergeByTranscodeConfig.setOutputPath("/storage/emulated/0/merge_transcoding.mp4");
                 VideoHandleEditor.mergeVideoByTranscoding(videoMergeByTranscodeConfig, this);
                 break;
             case R.id.ll_do_add_bgm_music:
@@ -194,10 +202,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 BGMConfig bgmConfig = new BGMConfig();
                 bgmConfig.setInputVideo(inputPath2);
                 bgmConfig.setAudioPath("/storage/emulated/0/north.mp3");
-                bgmConfig.setOutputVideo("/storage/emulated/0/add_bgm.mp4");
+                bgmConfig.setOutputPath("/storage/emulated/0/add_bgm.mp4");
                 bgmConfig.setOriginalVolume(0.2f);
                 bgmConfig.setNewAudioVolume(0.9f);
                 VideoHandleEditor.addBackgroundMusic(bgmConfig, this);
+                break;
+            case R.id.ll_do_separate_video:
+                if (dialog == null) {
+                    dialog = getDialog();
+                }
+                dialog.show();
+                BaseConfig baseConfig = new BaseConfig();
+                baseConfig.setInputVideo(inputPath2);
+                baseConfig.setOutputPath("/storage/emulated/0/separate_.mp4");
+                VideoHandleEditor.separateVideo(baseConfig, this);
+                break;
+            case R.id.ll_do_separate_audio:
+                if (dialog == null) {
+                    dialog = getDialog();
+                }
+                dialog.show();
+                BaseConfig baseConfig1 = new BaseConfig();
+                baseConfig1.setInputVideo(inputPath2);
+                baseConfig1.setOutputPath("/storage/emulated/0/separate_");
+                VideoHandleEditor.separateAudio(baseConfig1, Format.AAC, this);
                 break;
         }
     }

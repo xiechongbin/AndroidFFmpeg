@@ -72,6 +72,12 @@ add_library(
         IMPORTED
 )
 
+add_library(
+        mp3lame
+        SHARED
+        IMPORTED
+)
+
 
 
 if (${ANDROID_ABI} STREQUAL "armeabi")
@@ -132,6 +138,13 @@ if (${ANDROID_ABI} STREQUAL "armeabi")
             PROPERTIES IMPORTED_LOCATION
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi/libfak-aac.so
     )
+
+    set_target_properties(
+            mp3lame
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi/libmp3lame.so
+    )
+
 endif (${ANDROID_ABI} STREQUAL "armeabi")
 
 
@@ -197,6 +210,12 @@ if (${ANDROID_ABI} STREQUAL "armeabi-v7a")
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a/libfdk-aac.so
     )
 
+    set_target_properties(
+            mp3lame
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/armeabi-v7a/libmp3lame.so
+    )
+
 endif (${ANDROID_ABI} STREQUAL "armeabi-v7a")
 
 if (${ANDROID_ABI} STREQUAL "arm64-v8a")
@@ -258,6 +277,12 @@ if (${ANDROID_ABI} STREQUAL "arm64-v8a")
             fdk-aac
             PROPERTIES IMPORTED_LOCATION
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/arm64-v8a/libfdk-aac.so
+    )
+
+    set_target_properties(
+            mp3lame
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/arm64-v8a/libmp3lame.so
     )
 
 endif (${ANDROID_ABI} STREQUAL "arm64-v8a")
@@ -322,6 +347,12 @@ if (${ANDROID_ABI} STREQUAL "x86")
             PROPERTIES IMPORTED_LOCATION
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86/libfdk-aac.so
     )
+
+    set_target_properties(
+            mp3lame
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86/libmp3lame.so
+    )
 endif (${ANDROID_ABI} STREQUAL "x86")
 
 if (${ANDROID_ABI} STREQUAL "x86_64")
@@ -385,6 +416,11 @@ if (${ANDROID_ABI} STREQUAL "x86_64")
             PROPERTIES IMPORTED_LOCATION
             ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86_64/libfdk-aac.so
     )
+    set_target_properties(
+            mp3lame
+            PROPERTIES IMPORTED_LOCATION
+            ${CMAKE_SOURCE_DIR}/src/main/jniLibs/x86_64/libmp3lame.so
+    )
 
 endif (${ANDROID_ABI} STREQUAL "x86_64")
 
@@ -409,4 +445,5 @@ target_link_libraries(
         swscale
         x264
         fdk-aac
+        mp3lame
         ${log-lib})
