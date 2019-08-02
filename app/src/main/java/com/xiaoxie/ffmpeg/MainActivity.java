@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.xiaoxie.ffmpeglib.VideoHandleEditor;
+import com.xiaoxie.ffmpeglib.config.BGMConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
@@ -44,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout ll_do_compress_vbr;
     private LinearLayout ll_do_merge_undamage;
     private LinearLayout ll_do_merge_transcoding;
+    private LinearLayout ll_do_add_bgm_music;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +60,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_compress_vbr = findViewById(R.id.ll_do_compress_vbr);
         ll_do_merge_undamage = findViewById(R.id.ll_do_merge_undamage);
         ll_do_merge_transcoding = findViewById(R.id.ll_do_merge_transcoding);
+        ll_do_add_bgm_music = findViewById(R.id.ll_do_add_bgm_music);
         setListener();
         MainActivityPermissionsDispatcher.onClickWithPermissionCheck(this, 0);
     }
@@ -71,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_compress_vbr.setOnClickListener(this);
         ll_do_merge_undamage.setOnClickListener(this);
         ll_do_merge_transcoding.setOnClickListener(this);
+        ll_do_add_bgm_music.setOnClickListener(this);
     }
 
     @Override
@@ -181,6 +185,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 videoMergeByTranscodeConfig.setFrameRate(24);
                 videoMergeByTranscodeConfig.setOutputVideo("/storage/emulated/0/merge_transcoding.mp4");
                 VideoHandleEditor.mergeVideoByTranscoding(videoMergeByTranscodeConfig, this);
+                break;
+            case R.id.ll_do_add_bgm_music:
+                if (dialog == null) {
+                    dialog = getDialog();
+                }
+                dialog.show();
+                BGMConfig bgmConfig = new BGMConfig();
+                bgmConfig.setInputVideo(inputPath2);
+                bgmConfig.setAudioPath("/storage/emulated/0/north.mp3");
+                bgmConfig.setOutputVideo("/storage/emulated/0/add_bgm.mp4");
+                bgmConfig.setOriginalVolume(0.2f);
+                bgmConfig.setNewAudioVolume(0.9f);
+                VideoHandleEditor.addBackgroundMusic(bgmConfig, this);
                 break;
         }
     }

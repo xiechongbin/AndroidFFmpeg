@@ -1,12 +1,14 @@
 package com.xiaoxie.ffmpeglib;
 
 import android.media.MediaExtractor;
+import android.media.MediaFormat;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.xiaoxie.ffmpeglib.config.BGMConfig;
 import com.xiaoxie.ffmpeglib.config.VideoCompressConfig;
-import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
+import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
 import com.xiaoxie.ffmpeglib.mode.Mode;
 import com.xiaoxie.ffmpeglib.mode.Preset;
@@ -440,5 +442,74 @@ public class VideoHandleEditor {
         }
         Log.d("ffmpeg_log", cmdList.toString());
         FFmpegJniBridge.invokeCommandSync(cmdList, videoLength, listener);
+    }
+
+    /**
+     * 给视频添加背景音乐
+     *
+     * @param config   {@link BGMConfig}
+     * @param listener 回调监听
+     */
+    public static void addBackgroundMusic(BGMConfig config, OnCmdExecListener listener) {
+        if (config == null) {
+            throw new IllegalArgumentException("config 为空");
+        }
+        if (config.getInputVideo() == null) {
+            throw new IllegalArgumentException("输入视频错误");
+        }
+        if (config.getAudioPath() == null) {
+            throw new IllegalArgumentException("找不到音频文件");
+        }
+        if (TextUtils.isEmpty(config.getOutputVideo())) {
+            config.setOutputVideo(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
+        }
+        MediaExtractor mediaExtractor = new MediaExtractor();
+        try {
+            mediaExtractor.setDataSource(config.getInputVideo());
+        } catch (IOException e) {
+            e.printStackTrace();
+            return;
+        }
+        int at = VideoUtils.selectAudioTrack(mediaExtractor);
+
+        CmdList cmdList = new CmdList();
+        cmdList.append("ffmpeg");
+        cmdList.append("-y");
+        cmdList.append("-i");
+        cmdList.append(config.getInputVideo());
+        if (at == -1) {
+            int vt = VideoUtils.selectVideoTrack(mediaExtractor);
+            float duration = (float) mediaExtractor.getTrackFormat(vt).getLong(MediaFormat.KEY_DURATION) / 1000 / 1000;
+            cmdList.append("-ss");
+            cmdList.append("0");
+            cmdList.append("-t");
+            cmdList.append(duration);
+            cmdList.append("-i");
+            cmdList.append(config.getAudioPath());
+            cmdList.append("-acodec");
+            cmdList.append("copy");
+            cmdList.append("-vcodec");
+            cmdList.append("copy");
+        } else {
+            cmdList.append("-i");
+            cmdList.append(config.getAudioPath());
+            cmdList.append("-filter_complex");
+            cmdList.append("[0:a]aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,volume="
+                    + config.getOriginalVolume()
+                    + "[a0];[1:a]aformat=sample_fmts=fltp:sample_rates=44100:channel_layouts=stereo,volume="
+                    + config.getNewAudioVolume() + "[a1];[a0][a1]amix=inputs=2:duration=first[aout]");
+            cmdList.append("-map");
+            cmdList.append("[aout]");
+            cmdList.append("-ac");
+            cmdList.append("2");
+            cmdList.append("-c:v");
+            cmdList.append("copy");
+            cmdList.append("-map");
+            cmdList.append("0:v:0");
+        }
+        cmdList.append(config.getOutputVideo());
+        mediaExtractor.release();
+        Log.d("ffmpeg_log", cmdList.toString());
+        FFmpegJniBridge.invokeCommandSync(cmdList, VideoUtils.getVideoLength(config.getInputVideo()), listener);
     }
 }
