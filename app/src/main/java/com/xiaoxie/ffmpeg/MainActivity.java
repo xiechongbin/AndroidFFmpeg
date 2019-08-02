@@ -10,13 +10,14 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.xiaoxie.ffmpeglib.VideoHandleEditor;
-import com.xiaoxie.ffmpeglib.VideoMergeConfig;
+import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
+import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
-import com.xiaoxie.ffmpeglib.mode.AutoVBRMode;
-import com.xiaoxie.ffmpeglib.mode.CBRMode;
+import com.xiaoxie.ffmpeglib.config.AutoVBRMode;
+import com.xiaoxie.ffmpeglib.config.CBRMode;
 import com.xiaoxie.ffmpeglib.mode.Mode;
 import com.xiaoxie.ffmpeglib.mode.Preset;
-import com.xiaoxie.ffmpeglib.mode.VBRMode;
+import com.xiaoxie.ffmpeglib.config.VBRMode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout ll_do_compress_cbr;
     private LinearLayout ll_do_compress_vbr;
     private LinearLayout ll_do_merge_undamage;
+    private LinearLayout ll_do_merge_transcoding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +57,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_compress_cbr = findViewById(R.id.ll_do_compress_cbr);
         ll_do_compress_vbr = findViewById(R.id.ll_do_compress_vbr);
         ll_do_merge_undamage = findViewById(R.id.ll_do_merge_undamage);
+        ll_do_merge_transcoding = findViewById(R.id.ll_do_merge_transcoding);
         setListener();
         MainActivityPermissionsDispatcher.onClickWithPermissionCheck(this, 0);
     }
@@ -67,6 +70,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_compress_cbr.setOnClickListener(this);
         ll_do_compress_vbr.setOnClickListener(this);
         ll_do_merge_undamage.setOnClickListener(this);
+        ll_do_merge_transcoding.setOnClickListener(this);
     }
 
     @Override
@@ -158,8 +162,25 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 inputList.add(inputPath2);
                 inputList.add(inputPath);
                 config.setInputVideoList(inputList);
-                config.setOutputVideo("/storage/emulated/0/merge_undamage.mp4");
-                VideoHandleEditor.mergeVideosUndamage(config, this);
+                config.setOutputVideo("/storage/emulated/0/merge_lossless.mp4");
+                VideoHandleEditor.mergeVideosLossLess(config, this);
+                break;
+            case R.id.ll_do_merge_transcoding:
+                if (dialog == null) {
+                    dialog = getDialog();
+                }
+                dialog.show();
+                VideoMergeByTranscodeConfig videoMergeByTranscodeConfig = new VideoMergeByTranscodeConfig();
+                List<String> list = new ArrayList<>();
+                list.add(inputPath2);
+                list.add(inputPath);
+                videoMergeByTranscodeConfig.setInputVideoList(list);
+                videoMergeByTranscodeConfig.setWidth(720);
+                videoMergeByTranscodeConfig.setHeight(1280);
+                videoMergeByTranscodeConfig.setBitRate(10);
+                videoMergeByTranscodeConfig.setFrameRate(24);
+                videoMergeByTranscodeConfig.setOutputVideo("/storage/emulated/0/merge_transcoding.mp4");
+                VideoHandleEditor.mergeVideoByTranscoding(videoMergeByTranscodeConfig, this);
                 break;
         }
     }

@@ -1,6 +1,6 @@
-package com.xiaoxie.ffmpeglib.mode;
+package com.xiaoxie.ffmpeglib.config;
 
-import com.xiaoxie.ffmpeglib.VideoCompressConfig;
+import com.xiaoxie.ffmpeglib.mode.Mode;
 
 /**
  * Created by xcb on 2019/7/30.

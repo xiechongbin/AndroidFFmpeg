@@ -1,23 +1,17 @@
-package com.xiaoxie.ffmpeglib;
+package com.xiaoxie.ffmpeglib.config;
 
 import com.xiaoxie.ffmpeglib.mode.Mode;
-import com.xiaoxie.ffmpeglib.mode.Preset;
 import com.xiaoxie.ffmpeglib.mode.Tune;
 
 /**
  * 视频压缩配置类
  * Created by xcb on 2019/7/30.
  */
-public class VideoCompressConfig {
+public class VideoCompressConfig extends BaseConfig {
     /**
      * 码率模式{@link Mode}
      */
     protected int mode = -1;
-
-    /**
-     * 编码速度参数{@link Preset}
-     */
-    private String preset = null;
 
     /**
      * 视频偏好设置{@link Tune}
@@ -33,26 +27,14 @@ public class VideoCompressConfig {
      */
     protected int maxBitrate = -1;
 
+    /**
+     * 缓冲区大小
+     */
     protected int bufSize = -1;
     /**
      * 码率等级0~51，越大
      */
     protected int crfSize = -1;
-
-    /**
-     * 视频输入路径
-     */
-    private String inputVideo;
-
-    /**
-     * 视频输出路径
-     */
-    private String outputVideo;
-
-    /**
-     * 线程数
-     */
-    private int thread;
 
     /**
      * 视频缩放比例 大于1有效
@@ -71,14 +53,6 @@ public class VideoCompressConfig {
 
     public void setMode(int mode) {
         this.mode = mode;
-    }
-
-    public String getPreset() {
-        return preset == null ? "" : preset;
-    }
-
-    public void setPreset(String preset) {
-        this.preset = preset;
     }
 
     public String getTune() {
@@ -119,30 +93,6 @@ public class VideoCompressConfig {
 
     public void setCrfSize(int crfSize) {
         this.crfSize = crfSize;
-    }
-
-    public String getInputVideo() {
-        return inputVideo == null ? "" : inputVideo;
-    }
-
-    public void setInputVideo(String inputVideo) {
-        this.inputVideo = inputVideo;
-    }
-
-    public String getOutputVideo() {
-        return outputVideo == null ? "" : outputVideo;
-    }
-
-    public void setOutputVideo(String outputVideo) {
-        this.outputVideo = outputVideo;
-    }
-
-    public int getThread() {
-        return thread;
-    }
-
-    public void setThread(int thread) {
-        this.thread = thread;
     }
 
     public float getScale() {

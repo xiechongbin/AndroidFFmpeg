@@ -1,13 +1,13 @@
-package com.xiaoxie.ffmpeglib.mode;
+package com.xiaoxie.ffmpeglib.config;
 
-import com.xiaoxie.ffmpeglib.VideoCompressConfig;
+import com.xiaoxie.ffmpeglib.mode.Mode;
 
 /**
  * Created by xcb on 2019/7/30.
  */
 public class CBRMode extends VideoCompressConfig {
     /**
-     * @param bufSize
+     * @param bufSize 缓冲区大小
      * @param bitrate 固定码率值
      */
     public CBRMode(int bufSize, int bitrate) {

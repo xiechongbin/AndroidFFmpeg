@@ -1,14 +1,20 @@
 package com.xiaoxie.ffmpeglib;
 
+import android.media.MediaExtractor;
 import android.text.TextUtils;
 import android.util.Log;
 
+import com.xiaoxie.ffmpeglib.config.VideoCompressConfig;
+import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
+import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
 import com.xiaoxie.ffmpeglib.mode.Mode;
 import com.xiaoxie.ffmpeglib.mode.Preset;
 import com.xiaoxie.ffmpeglib.utils.VideoUtils;
 
 import java.io.File;
+import java.io.IOException;
+import java.util.List;
 
 /**
  * 视频处理类
@@ -296,10 +302,10 @@ public class VideoHandleEditor {
     /**
      * 无损合并视频 对需要合并的视频格式各项参数有严格要求，需要分辨率，帧率，码率都相同 否则合并失败
      *
-     * @param config   视频合并配置
+     * @param config   视频合并配置{@link VideoMergeConfig}
      * @param listener 回调监听
      */
-    public static void mergeVideosUndamage(VideoMergeConfig config, OnCmdExecListener listener) {
+    public static void mergeVideosLossLess(VideoMergeConfig config, OnCmdExecListener listener) {
         if (config == null) {
             throw new IllegalArgumentException("config 为空");
         }
@@ -333,6 +339,106 @@ public class VideoHandleEditor {
             videoLength += VideoUtils.getVideoLength(s);
         }
 
+        FFmpegJniBridge.invokeCommandSync(cmdList, videoLength, listener);
+    }
+
+    /**
+     * 视频转码合并
+     *
+     * @param config   视频合并配置 {@link VideoMergeConfig}
+     * @param listener 回调监听
+     */
+    public static void mergeVideoByTranscoding(VideoMergeByTranscodeConfig config, OnCmdExecListener listener) {
+        if (config == null) {
+            throw new IllegalArgumentException("config 为空");
+        }
+        if (config.getInputVideoList() == null || config.getInputVideoList().size() < 1) {
+            throw new IllegalArgumentException("输入视频错误");
+        }
+        if (TextUtils.isEmpty(config.getOutputVideo())) {
+            config.setOutputVideo(VideoUtils.defaultPath + "/" + System.currentTimeMillis() + ".mp4");
+        }
+        List<String> videos = config.getInputVideoList();
+
+        //检测是否有无音轨视频
+        boolean isNoAudioTrack = false;
+        for (String video : videos) {
+            MediaExtractor mediaExtractor = new MediaExtractor();
+            try {
+                mediaExtractor.setDataSource(video);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return;
+            }
+            int at = VideoUtils.selectAudioTrack(mediaExtractor);
+            if (at == -1) {
+                isNoAudioTrack = true;
+                mediaExtractor.release();
+                break;
+            }
+            mediaExtractor.release();
+        }
+
+        CmdList cmdList = new CmdList();
+        cmdList.append("ffmpeg");
+        cmdList.append("-y");
+        //添加输入视频路径
+        for (String video : videos) {
+            cmdList.append("-i");
+            cmdList.append(video);
+        }
+        cmdList.append("-filter_complex");
+        StringBuilder filter_complex = new StringBuilder();
+        for (int i = 0; i < videos.size(); i++) {
+            filter_complex.append("[")
+                    .append(i)
+                    .append(":v]")
+                    .append("scale=")
+                    .append(config.getWidth())
+                    .append(":")
+                    .append(config.getHeight())
+                    .append(",")
+                    .append("setdar=")
+                    .append(config.getWidth())
+                    .append("/")
+                    .append(config.getHeight())
+                    .append("[outv")
+                    .append(i)
+                    .append("]")
+                    .append(";");
+        }
+        for (int i = 0; i < videos.size(); i++) {
+            filter_complex.append("[outv").append(i).append("]");
+        }
+        filter_complex.append("concat=n=").append(videos.size()).append(":v=1:a=0[outv]");
+        //是否添加音轨
+        if (!isNoAudioTrack) {
+            filter_complex.append(";");
+            for (int i = 0; i < videos.size(); i++) {
+                filter_complex.append("[").append(i).append(":a]");
+            }
+            filter_complex.append("concat=n=").append(videos.size()).append(":v=0:a=1[outa]");
+        }
+        cmdList.append(filter_complex.toString());
+        cmdList.append("-map");
+        cmdList.append("[outv]");
+        if (!isNoAudioTrack) {
+            cmdList.append("-map");
+            cmdList.append("[outa]");
+        }
+        cmdList.append("-r");
+        cmdList.append(config.getFrameRate() > 0 ? config.getFrameRate() : 30);
+        cmdList.append("-b");
+        cmdList.append(config.getBitRate() + "M");
+        cmdList.append("-preset");
+        cmdList.append(TextUtils.isEmpty(config.getPreset()) ? Preset.ULTRAFAST : config.getPreset());
+        cmdList.append(config.getOutputVideo());
+
+        int videoLength = 0;
+        for (String s : config.getInputVideoList()) {
+            videoLength += VideoUtils.getVideoLength(s);
+        }
+        Log.d("ffmpeg_log", cmdList.toString());
         FFmpegJniBridge.invokeCommandSync(cmdList, videoLength, listener);
     }
 }

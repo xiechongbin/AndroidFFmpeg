@@ -1,10 +1,14 @@
 package com.xiaoxie.ffmpeglib.utils;
 
+import android.media.MediaExtractor;
+import android.media.MediaFormat;
 import android.media.MediaMetadataRetriever;
 import android.media.MediaPlayer;
 import android.os.Environment;
 import android.text.TextUtils;
 import android.util.Log;
+
+import com.xiaoxie.ffmpeglib.mode.Size;
 
 import java.io.File;
 import java.io.IOException;
@@ -33,38 +37,58 @@ public class VideoUtils {
     }
 
     /**
+     * 获取视频宽高
+     *
+     * @param videoPath 视频路径
+     * @return 视频宽高
+     */
+    public static Size getVideoSize(String videoPath) {
+        MediaMetadataRetriever retriever = new MediaMetadataRetriever();
+        retriever.setDataSource(videoPath);
+        String rotation = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
+        String width = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
+        String height = retriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
+        Size size = new Size();
+        size.setWidth(Integer.valueOf(width));
+        size.setHeight(Integer.valueOf(height));
+        size.setRotation(Integer.valueOf(rotation));
+        return size;
+    }
+
+
+    /**
      * @param videoPath 视频路径
      * @param scale     缩放比例 大于1有效
      * @return 格式化命令
      */
     public static String getScaleWH(String videoPath, float scale) {
-        MediaMetadataRetriever mediaMetadataRetriever = new MediaMetadataRetriever();
-        mediaMetadataRetriever.setDataSource(videoPath);
-        String s = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_ROTATION);
-        String videoW = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_WIDTH);
-        String videoH = mediaMetadataRetriever.extractMetadata(MediaMetadataRetriever.METADATA_KEY_VIDEO_HEIGHT);
-        int srcW = Integer.valueOf(videoW);
-        int srcH = Integer.valueOf(videoH);
-        int newSrcWidth = (int) (srcW / scale);
-        int newSrcHeight = (int) (srcH / scale);
-        if (newSrcHeight % 2 != 0) {
-            newSrcHeight += 1;
-        }
-        if (newSrcWidth % 2 != 0) {
-            newSrcWidth += 1;
-        }
-        switch (s) {
-            case "90":
-            case "270":
-                return String.format(Locale.ENGLISH, "%dx%d", newSrcHeight, newSrcWidth);
+        Size size = getVideoSize(videoPath);
+        if (size != null) {
+            int srcW = size.getWidth();
+            int srcH = size.getHeight();
+            int rotation = size.getRotation();
+            int newSrcWidth = (int) (srcW / scale);
+            int newSrcHeight = (int) (srcH / scale);
+            if (newSrcHeight % 2 != 0) {
+                newSrcHeight += 1;
+            }
+            if (newSrcWidth % 2 != 0) {
+                newSrcWidth += 1;
+            }
+            switch (rotation) {
+                case 90:
+                case 270:
+                    return String.format(Locale.ENGLISH, "%dx%d", newSrcHeight, newSrcWidth);
 
-            case "0":
-            case "180":
-            case "360":
-                return String.format(Locale.ENGLISH, "%dx%d", newSrcWidth, newSrcHeight);
-            default:
-                return "";
+                case 0:
+                case 180:
+                case 360:
+                    return String.format(Locale.ENGLISH, "%dx%d", newSrcWidth, newSrcHeight);
+                default:
+                    return "";
+            }
         }
+        return "";
     }
 
     /**
@@ -124,5 +148,43 @@ public class VideoUtils {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 查找视频轨道
+     *
+     * @param extractor
+     * @return
+     */
+    public static int selectVideoTrack(MediaExtractor extractor) {
+        int numTracks = extractor.getTrackCount();
+        for (int i = 0; i < numTracks; i++) {
+            MediaFormat format = extractor.getTrackFormat(i);
+            String mime = format.getString(MediaFormat.KEY_MIME);
+            if (mime.startsWith("video/")) {
+                Log.d(TAG, "Extractor selected track " + i + " (" + mime + "): " + format);
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /**
+     * 查找音频轨道
+     *
+     * @param extractor
+     * @return
+     */
+    public static int selectAudioTrack(MediaExtractor extractor) {
+        int numTracks = extractor.getTrackCount();
+        for (int i = 0; i < numTracks; i++) {
+            MediaFormat format = extractor.getTrackFormat(i);
+            String mime = format.getString(MediaFormat.KEY_MIME);
+            if (mime.startsWith("audio/")) {
+                Log.d(TAG, "Extractor selected track " + i + " (" + mime + "): " + format);
+                return i;
+            }
+        }
+        return -1;
     }
 }
