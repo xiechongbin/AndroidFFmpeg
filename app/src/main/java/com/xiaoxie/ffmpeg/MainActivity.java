@@ -9,17 +9,23 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
+import com.xiaoxie.ffmpeglib.FFmpegJniBridge;
 import com.xiaoxie.ffmpeglib.VideoHandleEditor;
 import com.xiaoxie.ffmpeglib.config.AutoVBRMode;
 import com.xiaoxie.ffmpeglib.config.BGMConfig;
 import com.xiaoxie.ffmpeglib.config.BaseConfig;
 import com.xiaoxie.ffmpeglib.config.CBRMode;
+import com.xiaoxie.ffmpeglib.config.ChangePTSConfig;
+import com.xiaoxie.ffmpeglib.config.Image2VideoConfig;
+import com.xiaoxie.ffmpeglib.config.ReverseConfig;
 import com.xiaoxie.ffmpeglib.config.VBRMode;
+import com.xiaoxie.ffmpeglib.config.Video2ImageConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
 import com.xiaoxie.ffmpeglib.mode.Format;
 import com.xiaoxie.ffmpeglib.mode.Mode;
+import com.xiaoxie.ffmpeglib.mode.PTS;
 import com.xiaoxie.ffmpeglib.mode.Preset;
 
 import java.util.ArrayList;
@@ -50,6 +56,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout ll_do_add_bgm_music;
     private LinearLayout ll_do_separate_video;
     private LinearLayout ll_do_separate_audio;
+    private LinearLayout ll_do_change_pts;
+    private LinearLayout ll_do_reverse;
+    private LinearLayout ll_video_2_image;
+    private LinearLayout ll_image_2_video;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +77,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_add_bgm_music = findViewById(R.id.ll_do_add_bgm_music);
         ll_do_separate_video = findViewById(R.id.ll_do_separate_video);
         ll_do_separate_audio = findViewById(R.id.ll_do_separate_audio);
+        ll_do_change_pts = findViewById(R.id.ll_do_change_pts);
+        ll_do_reverse = findViewById(R.id.ll_do_reverse);
+        ll_video_2_image = findViewById(R.id.ll_video_2_image);
+        ll_image_2_video = findViewById(R.id.ll_image_2_video);
         setListener();
         MainActivityPermissionsDispatcher.onClickWithPermissionCheck(this, 0);
     }
@@ -83,6 +97,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_add_bgm_music.setOnClickListener(this);
         ll_do_separate_video.setOnClickListener(this);
         ll_do_separate_audio.setOnClickListener(this);
+        ll_do_change_pts.setOnClickListener(this);
+        ll_do_reverse.setOnClickListener(this);
+        ll_video_2_image.setOnClickListener(this);
+        ll_image_2_video.setOnClickListener(this);
     }
 
     @Override
@@ -101,92 +119,71 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     void onClick(int id) {
         switch (id) {
             case R.id.btn_invoke:
+                // String cmd = "ffmpeg -y -i /storage/emulated/0/in.mp4 -f image2 -r 1 -q:v 10 -preset superfast /storage/emulated/0/2/%3d.jpg";
+                String cmd = "ffmpeg -y -i /storage/emulated/0/in1.mp4 -f image2 -r 1 -q:v 10 -preset superfast /storage/emulated/0/2/%3d.jpg";
+                FFmpegJniBridge.invokeCommandSync(cmd.split(" "), 1000, this);
                 break;
             case R.id.ll_do_cut_video:
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.setProgress(0);
-                dialog.show();
+                showDialog();
                 VideoHandleEditor.doCutVideoWithEndTime(inputPath, outputPath, 3, 10, true, true, this);
                 break;
             case R.id.ll_do_compress_video:
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.setProgress(0);
-                dialog.show();
+                showDialog();
                 VideoHandleEditor.compressVideo(inputPath, outputPath, "2000k", 30, "fast", this);
                 break;
             case R.id.ll_do_compress_auto_vbr:
+                showDialog();
                 AutoVBRMode auto_vbr_config = new AutoVBRMode();
-                auto_vbr_config.setInputVideo(inputPath);
+                auto_vbr_config.setInputPath(inputPath);
                 auto_vbr_config.setOutputPath("/storage/emulated/0/auto_vbr.mp4");
                 auto_vbr_config.setMode(Mode.AUTO_VBR);
                 auto_vbr_config.setCrfSize(21);
                 auto_vbr_config.setScale(1.2f);
                 auto_vbr_config.setThread(16);
                 auto_vbr_config.setFrameRate(24);
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.show();
                 VideoHandleEditor.compressVideo(auto_vbr_config, this);
                 break;
-
             case R.id.ll_do_compress_cbr:
+                showDialog();
                 CBRMode cbrModeConfig = new CBRMode(166, 2097);
-                cbrModeConfig.setInputVideo(inputPath);
+                cbrModeConfig.setInputPath(inputPath);
                 cbrModeConfig.setOutputPath("/storage/emulated/0/cbr.mp4");
                 cbrModeConfig.setScale(1.2f);
                 cbrModeConfig.setThread(16);
                 cbrModeConfig.setPreset(Preset.ULTRAFAST);
                 cbrModeConfig.setFrameRate(24);
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.show();
                 VideoHandleEditor.compressVideo(cbrModeConfig, this);
                 break;
 
             case R.id.ll_do_compress_vbr:
+                showDialog();
                 VBRMode vbrModeConfig = new VBRMode(4000, 2097);
-                vbrModeConfig.setInputVideo(inputPath);
+                vbrModeConfig.setInputPath(inputPath);
                 vbrModeConfig.setOutputPath("/storage/emulated/0/vbr.mp4");
                 vbrModeConfig.setScale(1.2f);
                 vbrModeConfig.setThread(16);
                 vbrModeConfig.setFrameRate(24);
                 vbrModeConfig.setPreset(Preset.ULTRAFAST);
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.show();
                 VideoHandleEditor.compressVideo(vbrModeConfig, this);
                 break;
 
             case R.id.ll_do_merge_undamage:
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.show();
+                showDialog();
                 VideoMergeConfig config = new VideoMergeConfig();
                 List<String> inputList = new ArrayList<>();
                 inputList.add(inputPath2);
                 inputList.add(inputPath);
-                config.setInputVideoList(inputList);
+                config.setInputPathList(inputList);
                 config.setOutputPath("/storage/emulated/0/merge_lossless.mp4");
                 VideoHandleEditor.mergeVideosLossLess(config, this);
                 break;
             case R.id.ll_do_merge_transcoding:
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.show();
+                showDialog();
                 VideoMergeByTranscodeConfig videoMergeByTranscodeConfig = new VideoMergeByTranscodeConfig();
                 List<String> list = new ArrayList<>();
                 list.add(inputPath2);
                 list.add(inputPath);
-                videoMergeByTranscodeConfig.setInputVideoList(list);
+                videoMergeByTranscodeConfig.setInputPathList(list);
                 videoMergeByTranscodeConfig.setWidth(720);
                 videoMergeByTranscodeConfig.setHeight(1280);
                 videoMergeByTranscodeConfig.setBitRate(10);
@@ -195,12 +192,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 VideoHandleEditor.mergeVideoByTranscoding(videoMergeByTranscodeConfig, this);
                 break;
             case R.id.ll_do_add_bgm_music:
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.show();
+                showDialog();
                 BGMConfig bgmConfig = new BGMConfig();
-                bgmConfig.setInputVideo(inputPath2);
+                bgmConfig.setInputPath(inputPath2);
                 bgmConfig.setAudioPath("/storage/emulated/0/north.mp3");
                 bgmConfig.setOutputPath("/storage/emulated/0/add_bgm.mp4");
                 bgmConfig.setOriginalVolume(0.2f);
@@ -208,35 +202,73 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 VideoHandleEditor.addBackgroundMusic(bgmConfig, this);
                 break;
             case R.id.ll_do_separate_video:
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.show();
+                showDialog();
                 BaseConfig baseConfig = new BaseConfig();
-                baseConfig.setInputVideo(inputPath2);
+                baseConfig.setInputPath(inputPath2);
                 baseConfig.setOutputPath("/storage/emulated/0/separate_.mp4");
                 VideoHandleEditor.separateVideo(baseConfig, this);
                 break;
             case R.id.ll_do_separate_audio:
-                if (dialog == null) {
-                    dialog = getDialog();
-                }
-                dialog.show();
+                showDialog();
                 BaseConfig baseConfig1 = new BaseConfig();
-                baseConfig1.setInputVideo(inputPath2);
+                baseConfig1.setInputPath(inputPath2);
                 baseConfig1.setOutputPath("/storage/emulated/0/separate_");
                 VideoHandleEditor.separateAudio(baseConfig1, Format.AAC, this);
+                break;
+            case R.id.ll_do_change_pts:
+                showDialog();
+                ChangePTSConfig changePTSConfig = new ChangePTSConfig();
+                changePTSConfig.setInputPath(inputPath2);
+                changePTSConfig.setPtsType(PTS.ALL);
+                changePTSConfig.setTimes(0.5f);
+                changePTSConfig.setOutputPath("/storage/emulated/0/视频变速.mp4");
+                VideoHandleEditor.changeVideoPTS(changePTSConfig, this);
+                break;
+            case R.id.ll_do_reverse:
+                showDialog();
+                ReverseConfig reverseConfig = new ReverseConfig();
+                reverseConfig.setInputPath(inputPath);
+                reverseConfig.setVideoReverse(true);
+                reverseConfig.setAudioReverse(true);
+                reverseConfig.setOutputPath("/storage/emulated/0/视频倒序.mp4");
+                VideoHandleEditor.reverse(reverseConfig, this);
+                break;
+            case R.id.ll_video_2_image:
+                showDialog();
+                Video2ImageConfig viConfig = new Video2ImageConfig();
+                viConfig.setInputPath(inputPath);
+                viConfig.setRate(1);
+                viConfig.setImageQuality(2);
+                viConfig.setWidth(640);
+                viConfig.setHeight(480);
+                viConfig.setOutputPath("/storage/emulated/0/z_video_2_image");
+                viConfig.setOutputNameFormat("%3d");
+                viConfig.setImageSuffix(Format.JPG);
+                VideoHandleEditor.video2Image(viConfig, this);
+                break;
+            case R.id.ll_image_2_video:
+                showDialog();
+                Image2VideoConfig ivConfig = new Image2VideoConfig();
+                ivConfig.setWidth(1080);
+                ivConfig.setHeight(1920);
+                ivConfig.setRate(10);
+                ivConfig.setDuration(10);
+                ivConfig.setLoop(1);
+                ivConfig.setAudioPath("/storage/emulated/0/separate_.mp3");
+                ivConfig.setInputPath("/storage/emulated/0/ztest/%3d.jpg");
+                ivConfig.setOutputPath("/storage/emulated/0/图片转视频.mp4");
+                VideoHandleEditor.image2Video(ivConfig, this);
                 break;
         }
     }
 
-    private ProgressDialog getDialog() {
-        ProgressDialog progressDialog = new ProgressDialog(this);
-        progressDialog.setTitle("开始执行");
-        progressDialog.setCancelable(true);
-        progressDialog.setMax(100);
-        progressDialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
-        return progressDialog;
+    private void showDialog() {
+        dialog = new ProgressDialog(this);
+        dialog.setTitle("开始执行");
+        dialog.setCancelable(true);
+        dialog.setMax(100);
+        dialog.setProgressStyle(ProgressDialog.STYLE_HORIZONTAL);
+        dialog.show();
     }
 
     @Override

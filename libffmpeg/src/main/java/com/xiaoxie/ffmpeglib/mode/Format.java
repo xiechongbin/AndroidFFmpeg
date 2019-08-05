@@ -22,4 +22,13 @@ public class Format {
      * mp4格式
      */
     public static String MP4 = "mp4";
+
+    /**
+     * 图片png格式
+     */
+    public static String PNG = "png";
+    /**
+     * 图片jpg格式
+     */
+    public static String JPG = "jpg";
 }

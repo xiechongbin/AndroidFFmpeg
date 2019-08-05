@@ -9,21 +9,24 @@ import java.util.List;
  * Created by xcb on 2019/8/2.
  */
 public class BaseConfig {
+
+    public static final int DEFAULT_THREAD = 8;
     /**
      * 视频输入路径
      */
-    private List<String> inputVideoList;
+    private List<String> inputPathList;
 
     /**
-     * 视频输入路径
+     * 输入路径
      */
-    private String inputVideo;
+    private String inputPath;
 
 
     /**
-     * 视频输出路径
+     * 输出路径
      */
     private String outputPath;
+
 
     /**
      * 线程数
@@ -36,18 +39,6 @@ public class BaseConfig {
     private String preset = null;
 
 
-    public List<String> getInputVideoList() {
-        return inputVideoList;
-    }
-
-    public void setInputVideoList(List<String> inputVideoList) {
-        this.inputVideoList = inputVideoList;
-    }
-
-    public String getInputVideo() {
-        return inputVideo == null ? "" : inputVideo;
-    }
-
     public String getOutputPath() {
         return outputPath == null ? "" : outputPath;
     }
@@ -56,12 +47,11 @@ public class BaseConfig {
         this.outputPath = outputPath;
     }
 
-    public void setInputVideo(String inputVideo) {
-        this.inputVideo = inputVideo;
-    }
-
+    /**
+     * @return 默认返回16线程
+     */
     public int getThread() {
-        return thread;
+        return thread <= 0 ? DEFAULT_THREAD : thread;
     }
 
     public void setThread(int thread) {
@@ -74,5 +64,21 @@ public class BaseConfig {
 
     public void setPreset(String preset) {
         this.preset = preset;
+    }
+
+    public List<String> getInputPathList() {
+        return inputPathList;
+    }
+
+    public void setInputPathList(List<String> inputPathList) {
+        this.inputPathList = inputPathList;
+    }
+
+    public String getInputPath() {
+        return inputPath == null ? "" : inputPath;
+    }
+
+    public void setInputPath(String inputPath) {
+        this.inputPath = inputPath;
     }
 }

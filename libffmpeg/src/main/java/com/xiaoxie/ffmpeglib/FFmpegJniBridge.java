@@ -1,5 +1,7 @@
 package com.xiaoxie.ffmpeglib;
 
+import android.util.Log;
+
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
 
 /**
@@ -48,6 +50,7 @@ public class FFmpegJniBridge {
 
 
     public static void invokeCommandSync(CmdList cmdList, long duration, OnCmdExecListener onCmdExecListener) {
+        Log.d("ffmpeg_log", cmdList.toString());
         listener = onCmdExecListener;
         sDuration = duration;
         String[] commands = cmdList.toArray(new String[cmdList.size()]);
