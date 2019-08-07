@@ -47,11 +47,9 @@
             <LinearLayout
                 android:id="@+id/ll_do_cut_video"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="45dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -72,12 +70,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_compress_video"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -91,12 +87,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_compress_auto_vbr"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -110,12 +104,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_compress_cbr"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -129,12 +121,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_compress_vbr"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -148,12 +138,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_merge_undamage"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -167,12 +155,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_merge_transcoding"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -186,12 +172,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_add_bgm_music"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -205,12 +189,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_separate_video"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -224,12 +206,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_separate_audio"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -243,12 +223,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_change_pts"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -262,12 +240,10 @@
             <LinearLayout
                 android:id="@+id/ll_do_reverse"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -281,12 +257,10 @@
             <LinearLayout
                 android:id="@+id/ll_image_2_video"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -300,18 +274,33 @@
             <LinearLayout
                 android:id="@+id/ll_video_2_image"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginTop="5dp"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
                 android:background="@color/color_1e90ff"
-                android:orientation="vertical"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp">
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:text="视频转图片"
+                    android:textSize="20sp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_video_add_text"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/color_1e90ff"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="视频添加文字水印"
                     android:textSize="20sp"/>
 
             </LinearLayout>

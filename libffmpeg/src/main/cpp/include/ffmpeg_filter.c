@@ -38,6 +38,7 @@
 #include "libavutil/pixfmt.h"
 #include "libavutil/imgutils.h"
 #include "libavutil/samplefmt.h"
+#include "../android_log.h"
 
 static const enum AVPixelFormat *get_compliance_unofficial_pix_fmts(enum AVCodecID codec_id, const enum AVPixelFormat default_formats[])
 {
@@ -344,6 +345,7 @@ int init_complex_filtergraph(FilterGraph *fg)
     graph->nb_threads = 1;
 
     ret = avfilter_graph_parse2(graph, fg->graph_desc, &inputs, &outputs);
+    LOGE("%s %d行 ret = %d", __FUNCTION__, __LINE__, ret);
     if (ret < 0)
         goto fail;
 

@@ -9,6 +9,7 @@ import com.xiaoxie.ffmpeglib.config.BaseConfig;
 import com.xiaoxie.ffmpeglib.config.ChangePTSConfig;
 import com.xiaoxie.ffmpeglib.config.Image2VideoConfig;
 import com.xiaoxie.ffmpeglib.config.ReverseConfig;
+import com.xiaoxie.ffmpeglib.config.AddTextWatermarkConfig;
 import com.xiaoxie.ffmpeglib.config.Video2ImageConfig;
 import com.xiaoxie.ffmpeglib.config.VideoCompressConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
@@ -212,6 +213,16 @@ public class VideoHandleEditor {
     }
 
 
+    /**
+     * 视频压缩
+     *
+     * @param inputVideo  输入视频
+     * @param outputVideo 输出视频
+     * @param bitrate     码率
+     * @param quality     视频质量
+     * @param speed       转码速度
+     * @param listener    回调监听
+     */
     public static void compressVideo(String inputVideo, String outputVideo, String bitrate, int quality, String speed, OnCmdExecListener listener) {
         // String cmd = "ffmpeg -y -i /storage/emulated/0/in.mp4 -b 2097k -r 30 -vcodec libx264 -preset superfast /storage/emulated/0/a.mp4";
         if (TextUtils.isEmpty(inputVideo)) {
@@ -847,6 +858,64 @@ public class VideoHandleEditor {
         }
         cmdList.append("-s");
         cmdList.append(width + "x" + height);
+        cmdList.append(config.getOutputPath());
+        FFmpegJniBridge.invokeCommandSync(cmdList, VideoUtils.getVideoLength(config.getInputPath()), listener);
+    }
+
+    /**
+     * 使用drawtext滤镜 添加文字水印
+     *
+     * @param config   文字水平配置文件
+     * @param listener 回调监听
+     */
+    public static void addWaterMaker(AddTextWatermarkConfig config, OnCmdExecListener listener) {
+        if (config == null) {
+            throw new IllegalArgumentException("config 为空");
+        }
+        if (config.getInputPath() == null) {
+            throw new IllegalArgumentException("输入视频错误");
+        }
+        if (TextUtils.isEmpty(config.getOutputPath())) {
+            throw new IllegalArgumentException("视频输出路径不能为空");
+        }
+        if (TextUtils.isEmpty(config.getText())) {
+            throw new IllegalArgumentException("水印文字不能为空");
+        }
+        if (TextUtils.isEmpty(config.getTtf()) || (!config.getTtf().endsWith(".ttf") && !config.getTtf().endsWith(".TTF"))) {
+            throw new IllegalArgumentException("水印文字字体参数不合法");
+        }
+        CmdList cmdList = new CmdList();
+        cmdList.append("ffmpeg");
+        cmdList.append("-y");
+        cmdList.append("-threads");
+        cmdList.append(config.getThread());
+        cmdList.append("-i");
+        cmdList.append(config.getInputPath());
+        cmdList.append("-filter_complex");
+        StringBuilder filter_complex = new StringBuilder();
+        filter_complex.append("drawtext=fontfile=")
+                .append(config.getTtf())
+                .append(":");
+        if (config.getTextSize() > 0) {
+            filter_complex.append("fontsize=")
+                    .append(config.getTextSize())
+                    .append(":");
+        }
+        if (!TextUtils.isEmpty(config.getTextColor())) {
+            filter_complex.append("fontcolor=")
+                    .append(config.getTextColor())
+                    .append(":");
+        }
+        filter_complex.append("x=")
+                .append(config.getLocationX())
+                .append(":")
+                .append("y=")
+                .append(config.getLocationY())
+                .append(":")
+                .append("text=").append("\'" + config.getText() + "\'");
+        cmdList.append(  filter_complex.toString());
+        cmdList.append("-preset");
+        cmdList.append(TextUtils.isEmpty(config.getPreset()) ? "superfast" : config.getPreset());
         cmdList.append(config.getOutputPath());
         FFmpegJniBridge.invokeCommandSync(cmdList, VideoUtils.getVideoLength(config.getInputPath()), listener);
     }

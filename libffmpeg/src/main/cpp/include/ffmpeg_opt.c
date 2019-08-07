@@ -2056,9 +2056,10 @@ static void init_output_filter(OutputFilter *ofilter, OptionsContext *o,
 
 static int init_complex_filters(void) {
     int i, ret = 0;
-
+    LOGE("%s %d行 nb_filtergraphs = %d", __FUNCTION__, __LINE__, nb_filtergraphs);
     for (i = 0; i < nb_filtergraphs; i++) {
         ret = init_complex_filtergraph(filtergraphs[i]);
+        LOGE("%s %d行 ret = %d", __FUNCTION__, __LINE__, ret);
         if (ret < 0)
             return ret;
     }
@@ -3250,9 +3251,9 @@ static int open_files(OptionGroupList *l, const char *inout,
         LOGE("Opening an %s file: %s.\n", inout, g->arg);
 
         ret = open_file(&o, g->arg);
-        LOGE(" %s  %d ret = %d\n", __FUNCTION__, __LINE__,ret);
+        LOGE(" %s  %d ret = %d\n", __FUNCTION__, __LINE__, ret);
         uninit_options(&o);
-        LOGE(" %s  %d ret = %d\n", __FUNCTION__, __LINE__,ret);
+        LOGE(" %s  %d ret = %d\n", __FUNCTION__, __LINE__, ret);
         if (ret < 0) {
             av_log(NULL, AV_LOG_ERROR, "Error opening %s file %s.\n",
                    inout, g->arg);

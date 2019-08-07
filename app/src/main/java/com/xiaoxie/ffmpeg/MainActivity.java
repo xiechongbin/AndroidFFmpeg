@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.xiaoxie.ffmpeglib.FFmpegJniBridge;
 import com.xiaoxie.ffmpeglib.VideoHandleEditor;
+import com.xiaoxie.ffmpeglib.config.AddTextWatermarkConfig;
 import com.xiaoxie.ffmpeglib.config.AutoVBRMode;
 import com.xiaoxie.ffmpeglib.config.BGMConfig;
 import com.xiaoxie.ffmpeglib.config.BaseConfig;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout ll_do_reverse;
     private LinearLayout ll_video_2_image;
     private LinearLayout ll_image_2_video;
+    private LinearLayout ll_video_add_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,6 +83,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_reverse = findViewById(R.id.ll_do_reverse);
         ll_video_2_image = findViewById(R.id.ll_video_2_image);
         ll_image_2_video = findViewById(R.id.ll_image_2_video);
+        ll_video_add_text = findViewById(R.id.ll_video_add_text);
         setListener();
         MainActivityPermissionsDispatcher.onClickWithPermissionCheck(this, 0);
     }
@@ -101,6 +104,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_do_reverse.setOnClickListener(this);
         ll_video_2_image.setOnClickListener(this);
         ll_image_2_video.setOnClickListener(this);
+        ll_video_add_text.setOnClickListener(this);
     }
 
     @Override
@@ -120,7 +124,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.btn_invoke:
                 // String cmd = "ffmpeg -y -i /storage/emulated/0/in.mp4 -f image2 -r 1 -q:v 10 -preset superfast /storage/emulated/0/2/%3d.jpg";
-                String cmd = "ffmpeg -y -i /storage/emulated/0/in1.mp4 -f image2 -r 1 -q:v 10 -preset superfast /storage/emulated/0/2/%3d.jpg";
+               // String cmd = "ffmpeg -y -i /storage/emulated/0/in1.mp4 -f image2 -r 1 -q:v 10 -preset superfast /storage/emulated/0/2/%3d.jpg";
+                String cmd = "ffmpeg -y -i /storage/emulated/0/in.mp4 -filter_complex drawtext=fontfile=/storage/emulated/0/hua_kang.ttf:fontsize=35.0:fontcolor=#EE00EE:x=10:y=10:text='华康少女字体' -preset superfast /storage/emulated/0/add_text_.mp4";
                 FFmpegJniBridge.invokeCommandSync(cmd.split(" "), 1000, this);
                 break;
             case R.id.ll_do_cut_video:
@@ -258,6 +263,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 ivConfig.setInputPath("/storage/emulated/0/ztest/%3d.jpg");
                 ivConfig.setOutputPath("/storage/emulated/0/图片转视频.mp4");
                 VideoHandleEditor.image2Video(ivConfig, this);
+                break;
+            case R.id.ll_video_add_text:
+                AddTextWatermarkConfig textWatermarkConfig = new AddTextWatermarkConfig();
+                textWatermarkConfig.setText("视频添加水印");
+                textWatermarkConfig.setLocationX(30);
+                textWatermarkConfig.setLocationY(30);
+                textWatermarkConfig.setTextColor("red");
+                textWatermarkConfig.setTextSize(60);
+                textWatermarkConfig.setTtf("/storage/emulated/0/hua_kang.ttf");
+                textWatermarkConfig.setInputPath(inputPath);
+                textWatermarkConfig.setOutputPath("/storage/emulated/0/文字水印.mp4");
+                VideoHandleEditor.addWaterMaker(textWatermarkConfig, this);
                 break;
         }
     }
