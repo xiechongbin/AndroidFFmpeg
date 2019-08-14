@@ -143,7 +143,7 @@ void ffmpeg_exec_finish_callback(int ret) {
 void ffmpeg_exec_progress_callback(float progress) {
     JNIEnv *env;
     (*jvm)->AttachCurrentThread(jvm, (void **) &env, NULL);
-     callJavaMethodProgress(env, h_clazz, progress);
+    callJavaMethodProgress(env, h_clazz, progress);
     (*jvm)->DetachCurrentThread(jvm);
 }
 
@@ -183,6 +183,7 @@ void initClassHelper(JNIEnv *env, jobject *objptr) {
     }
     (*env)->CallVoidMethod(env, obj, methodID, 4);
 }
+
 
 
 

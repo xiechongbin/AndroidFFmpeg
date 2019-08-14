@@ -1,7 +1,9 @@
 package com.xiaoxie.ffmpeglib.config;
 
 /**
- * 文字水印配置
+ * 文字水印配置 详细文档请打开官网链接查看
+ *
+ * @see <a href="http://ffmpeg.org/ffmpeg-filters.html#drawtext-1"></a>
  * Created by xcb on 2019/8/7.
  */
 public class AddTextWatermarkConfig extends BaseConfig {

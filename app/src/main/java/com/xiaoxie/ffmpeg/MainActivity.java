@@ -9,7 +9,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-import com.xiaoxie.ffmpeglib.FFmpegJniBridge;
 import com.xiaoxie.ffmpeglib.VideoHandleEditor;
 import com.xiaoxie.ffmpeglib.config.AddTextWatermarkConfig;
 import com.xiaoxie.ffmpeglib.config.AutoVBRMode;
@@ -124,9 +123,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (id) {
             case R.id.btn_invoke:
                 // String cmd = "ffmpeg -y -i /storage/emulated/0/in.mp4 -f image2 -r 1 -q:v 10 -preset superfast /storage/emulated/0/2/%3d.jpg";
-               // String cmd = "ffmpeg -y -i /storage/emulated/0/in1.mp4 -f image2 -r 1 -q:v 10 -preset superfast /storage/emulated/0/2/%3d.jpg";
+                // String cmd = "ffmpeg -y -i /storage/emulated/0/in1.mp4 -f image2 -r 1 -q:v 10 -preset superfast /storage/emulated/0/2/%3d.jpg";
                 String cmd = "ffmpeg -y -i /storage/emulated/0/in.mp4 -filter_complex drawtext=fontfile=/storage/emulated/0/hua_kang.ttf:fontsize=35.0:fontcolor=#EE00EE:x=10:y=10:text='华康少女字体' -preset superfast /storage/emulated/0/add_text_.mp4";
-                FFmpegJniBridge.invokeCommandSync(cmd.split(" "), 1000, this);
+                //  FFmpegJniBridge.invokeCommandSync(cmd.split(" "), 1000, this);
                 break;
             case R.id.ll_do_cut_video:
                 showDialog();

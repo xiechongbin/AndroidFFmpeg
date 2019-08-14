@@ -1,0 +1,532 @@
+   /**
+   * ffmpeg configure 配置文件详解
+   * Created by xcb on 2019/8/7.
+   */
+
+
+  --help                   print this message
+                           打印这个信息，例如：./configure --help > ffmpegcfg.txt
+
+  --logfile=FILE           log tests and output to FILE [config.log]
+                           记录测试日志并输出到的文件[默认：config.log]
+
+  --disable-logging        do not log configure debug information
+                           不记录调试日志信息
+
+  --prefix=PREFIX          install in PREFIX []
+                           安装程序到指定目录[默认：空]
+
+  --bindir=DIR             install binaries in DIR [PREFIX/bin]
+                           安装程序到指定目录[默认：/bin]
+
+  --datadir=DIR            install data files in DIR [PREFIX/share/ffmpeg]
+                           安装数据文件到指定目录[默认：/share/ffmpeg]
+
+  --libdir=DIR             install libs in DIR [PREFIX/lib]
+                           安装静态库到指定目录[默认：/lib]
+
+  --shlibdir=DIR           install shared libs in DIR [PREFIX/lib]
+                           安装共享库到指定目录[默认：/lib]
+
+  --incdir=DIR             install includes in DIR [PREFIX/include]
+                           安装头文件到指定目录[默认：/include]
+
+  --mandir=DIR             install man page in DIR [PREFIX/share/man]
+                           安装man page到指定路径[默认：/share/man]
+
+Configuration options:
+配置选项：
+  --disable-static         do not build static libraries [no]
+                           不构建静态库[默认：关闭]
+
+  --enable-shared          build shared libraries [no]
+                           构建共享库[默认：关闭]
+
+  --enable-gpl             allow use of GPL code, the resulting libs
+                           and binaries will be under GPL [no]
+                           允许使用 GPL 代码，
+                           产生的库和程序将隶属于 GPL[默认：关闭]
+
+  --enable-version3        upgrade (L)GPL to version 3 [no]
+                           升级GPL到版本3[默认：关闭]
+
+  --enable-nonfree         allow use of nonfree code, the resulting libs
+                           and binaries will be unredistributable [no]
+                           允许使用非免费的代码，
+                           产生的库和二进制程序将是不可再发行的[默认：关闭]
+
+  --disable-doc            do not build documentation
+                           不构造文档
+
+  --disable-ffmpeg         disable ffmpeg build
+                           禁止 ffmpeg 构造
+
+  --disable-ffplay         disable ffplay build
+                           禁止 ffplay 构造
+
+  --disable-ffprobe        disable ffprobe build
+                           禁止 ffprobe 构造
+
+  --disable-ffserver       disable ffserver build
+                           禁止 ffserver 构造
+
+  --disable-avdevice       disable libavdevice build
+                           禁止 libavdevice 构造
+
+  --disable-avcodec        disable libavcodec build
+                           禁止 libavcodec 构造
+
+  --disable-avcore         disable libavcore build
+                           禁止 libavcore 构造
+
+  --disable-avformat       disable libavformat build
+                           禁止 libavformat 构造
+
+  --disable-swscale        disable libswscale build
+                           禁止 libswscale 构造
+
+  --enable-postproc        enable GPLed postprocessing support [no]
+                           启用 GPLed 后加工支持[默认：关闭]
+
+  --disable-avfilter       disable video filter support [no]
+                           禁止视频过滤器支持[默认：关闭]
+
+  --disable-pthreads       disable pthreads [auto]
+                           禁用 pthreads [默认：自动]
+
+  --enable-w32threads      use Win32 threads [no]
+                           使用 Win32 线程[默认：关闭]
+
+  --enable-x11grab         enable X11 grabbing [no]
+                           启用 X11 攫取[默认：关闭]
+
+  --disable-network        disable network support [no]
+                           禁用网络支持[默认：不禁用]
+
+  --disable-mpegaudio-hp   faster (but less accurate) MPEG audio decoding [no]
+                           快速的 MPEG 音频解码方式（但精度低）[默认：禁用]
+
+  --enable-gray            enable full grayscale support (slower color)
+                           启用全部灰度的支持(感光性较低的颜色)
+
+  --disable-swscale-alpha  disable alpha channel support in swscale
+                           在软缩放时 禁止 阿尔法 通道支持
+
+  --disable-fastdiv        disable table-based division
+                           禁止以表格为主划分
+
+  --enable-small           optimize for size instead of speed
+                           启用大小优化,牺牲速度
+
+  --disable-aandct         disable AAN DCT code
+                           禁止 AAN DCT 码
+
+  --disable-dct            disable DCT code
+                           禁止 DCT 码
+
+  --disable-fft            disable FFT code
+                           禁止 FFT 码
+
+  --disable-golomb         disable Golomb code
+                           禁止 Golomb 码
+
+  --disable-huffman        disable Huffman code
+                           禁止 Huffman 码
+
+  --disable-lpc            disable LPC code
+                           禁止 LPC 码
+
+  --disable-mdct           disable MDCT code
+                           禁止 MDCT 码
+
+  --disable-rdft           disable RDFT code
+                           禁止 RDFT 码
+
+  --disable-vaapi          disable VAAPI code
+                           禁止 VAAPI 码
+
+  --disable-vdpau          disable VDPAU code
+                           禁止 VDPAU 码
+
+  --disable-dxva2          disable DXVA2 code
+                           禁止 DXVA2 码
+
+  --enable-runtime-cpudetect detect cpu capabilities at runtime (bigger binary)
+                             启用在运行时侦测 CPU 性能(更大的二进制程序)
+
+  --enable-hardcoded-tables use hardcoded tables instead of runtime generation
+                            启用硬编码表而不是运行时产生
+
+  --enable-memalign-hack   emulate memalign, interferes with memory debuggers
+                           模拟memalign，内存调试器干扰
+
+  --disable-everything     disable all components listed below
+                           禁用下面已列出的全部组件
+
+  --disable-encoder=NAME   disable encoder NAME
+                           禁用指定的编码器
+
+  --enable-encoder=NAME    enable encoder NAME
+                           启用指定的编码器
+
+  --disable-encoders       disable all encoders
+                           禁用全部编码器
+
+  --disable-decoder=NAME   disable decoder NAME
+                           禁用指定的解码器
+
+  --enable-decoder=NAME    enable decoder NAME
+                           启用指定的解码器
+
+  --disable-decoders       disable all decoders
+                           禁用全部解码器
+
+  --disable-hwaccel=NAME   disable hwaccel NAME
+                           禁用指定的硬件加速
+
+  --enable-hwaccel=NAME    enable hwaccel NAME
+                           启用指定的硬件加速
+
+  --disable-hwaccels       disable all hwaccels
+                           禁用全部的硬件加速
+
+  --disable-muxer=NAME     disable muxer NAME
+                           禁用指定的混合器(音视频合并成一个文件)
+
+  --enable-muxer=NAME      enable muxer NAME
+                           启用指定的混合器(音视频合并成一个文件)
+
+  --disable-muxers         disable all muxers
+                           禁用全部混合器(音视频合并成一个文件)
+
+  --disable-demuxer=NAME   disable demuxer NAME
+                           禁用指定的解混器(音视频从一个文件分解出来)
+
+  --enable-demuxer=NAME    enable demuxer NAME
+                           启用指定的解混器(音视频从一个文件分解出来)
+
+  --disable-demuxers       disable all demuxers
+                           禁用全部解混器(音视频从一个文件分解出来)
+
+  --enable-parser=NAME     enable parser NAME
+                           启用指定的分析器
+
+  --disable-parser=NAME    disable parser NAME
+                           禁用指定的分析器
+
+  --disable-parsers        disable all parsers
+                           禁用全部分析器
+
+  --enable-bsf=NAME        enable bitstream filter NAME
+                           启用指定的位流过滤器
+
+  --disable-bsf=NAME       disable bitstream filter NAME
+                           禁用指定的位流过滤器
+
+  --disable-bsfs           disable all bitstream filters
+                           禁用全部的位流过滤器
+
+  --enable-protocol=NAME   enable protocol NAME
+                           启用指定的协议
+
+  --disable-protocol=NAME  disable protocol NAME
+                           禁用指定的协议
+
+  --disable-protocols      disable all protocols
+                           禁用全部协议
+
+  --disable-indev=NAME     disable input device NAME
+                           禁用指定的输入设备
+
+  --disable-outdev=NAME    disable output device NAME
+                           禁用指定的输出设备
+
+  --disable-indevs         disable input devices
+                           禁用输入设备
+
+  --disable-outdevs        disable output devices
+                           禁用输出设备
+
+  --disable-devices        disable all devices
+                           禁用全部输入输出设备
+
+  --enable-filter=NAME     enable filter NAME
+                           启用指定的过滤器
+
+  --disable-filter=NAME    disable filter NAME
+                           禁用指定的过滤器
+
+  --disable-filters        disable all filters
+                           禁用全部的过滤器
+
+  --list-decoders          show all available decoders
+                           显示全部可用的解码器
+
+  --list-encoders          show all available encoders
+                           显示全部可用的编码器
+
+  --list-hwaccels          show all available hardware accelerators
+                           显示全部可用的硬件加速器
+
+  --list-muxers            show all available muxers
+                           显示全部可用的混合器
+
+  --list-demuxers          show all available demuxers
+                           显示全部可用的解混器
+
+  --list-parsers           show all available parsers
+                           显示全部可用的分析器
+
+  --list-protocols         show all available protocols
+                           显示全部可用的协议
+
+  --list-bsfs              show all available bitstream filters
+                           显示全部可用的位流过滤器
+
+  --list-indevs            show all available input devices
+                           显示全部可用的输入设备
+
+  --list-outdevs           show all available output devices
+                           显示全部可用的输出设备
+
+  --list-filters           show all available filters
+                           显示全部可用的过滤器
+
+External library support:
+外部库支持：
+  --enable-avisynth        enable reading of AVISynth script files [no]
+                           启用读取 AVISynth 脚本文件[默认：关闭]
+
+  --enable-bzlib           enable bzlib [autodetect]
+                           启用 bzlib[默认：自动侦测]
+
+  --enable-frei0r          enable frei0r video filtering
+                           启用 frei0r 视频筛选
+
+  --enable-libopencore-amrnb enable AMR-NB de/encoding via libopencore-amrnb [no]
+                             启用 AMR-NB 编解码通过 libopencore-amrnb[默认：关闭]
+                             1. AMR: Adaptive Multi-Rate 相对相对WB而言又称 AMR-NB，
+                                     自适应多速率编码，主要用于移动设备的音频，
+                                     压缩比比较大，但相对其他的压缩格式质量比较差，
+                                     由于多用于人声，通话，效果还是很不错的。
+                                     语音带宽范围：300－3400Hz，8KHz抽样；
+                             2. AMR-WB: AMR WideBand，
+                                        是一种同时被国际标准化组织ITU-T和3GPP采用的宽带
+                                        语音编码标准，也称为G722.2标准。
+                                        语音带宽范围： 50－7000Hz，16KHz抽样
+
+  --enable-libopencore-amrwb enable AMR-WB decoding via libopencore-amrwb [no]
+                             启用 AMR-WB 编解码通过 libopencore-amrwb[默认：关闭]
+
+  --enable-libopencv       enable video filtering via libopencv [no]
+                           通过 libopencv启用视频筛选 [默认：关闭]
+
+  --enable-libdc1394       enable IIDC-1394 grabbing using libdc1394
+                           and libraw1394 [no]
+                           启用 libdc1394、libraw1394 抓取 IIDC-1394[默认：关闭]
+
+  --enable-libdirac        enable Dirac support via libdirac [no]
+  --enable-libfaac         enable FAAC support via libfaac [no]
+                           通过 libfaac 启用 FAAC 支持[默认：关闭]
+
+  --enable-libgsm          enable GSM support via libgsm [no]
+                           通过 libgsm 启用 GSM 支持[默认：关闭]
+
+  --enable-libmp3lame      enable MP3 encoding via libmp3lame [no]
+                           通过 libmp3lame 启用 MP3 编码[默认：关闭]
+
+  --enable-libnut          enable NUT (de)muxing via libnut,
+                           native (de)muxer exists [no]
+                           启用 NUT (解)混合通过 libnut,
+                           本地的 (解)混合器存在[默认：关闭]
+                           注：NUT是一种容器格式。
+
+  --enable-libopenjpeg     enable JPEG 2000 decoding via OpenJPEG [no]
+                           通过 OpenJPEG启用 JPEG2000 解码 [默认：关闭]
+
+  --enable-librtmp         enable RTMP[E] support via librtmp [no]
+                           通过 librtmp 启用 RTMP[E]支持 [默认：关闭]
+
+  --enable-libschroedinger enable Dirac support via libschroedinger [no]
+                           通过 libschroedinger启用 Dirac 支持 [默认：关闭]
+
+  --enable-libspeex        enable Speex decoding via libspeex [no]
+                           通过 libspeex启用 Speex 解码[默认：关闭]
+
+  --enable-libtheora       enable Theora encoding via libtheora [no]
+                           通过 libtheora启用 Theora 编码[默认：关闭]
+
+  --enable-libvorbis       enable Vorbis encoding via libvorbis,
+                           native implementation exists [no]
+                           通过 libvorbis 启用 Vorbis 编码方式，本地装置存在[默认：关闭]
+
+  --enable-libvpx          enable VP8 support via libvpx [no]
+  --enable-libx264         enable H.264 encoding via x264 [no]
+                           通过 x264 启用 H.264 编码方式[默认：关闭]
+
+  --enable-libxavs         enable AVS encoding via xavs [no]
+  --enable-libxvid         enable Xvid encoding via xvidcore,
+                           native MPEG-4/Xvid encoder exists [no]
+                           通过 xvidcore 启用 Xvid 编码方式，
+                           本地 MPEG-4/Xvid 编码器存在[默认：关闭]
+
+  --enable-mlib            enable Sun medialib [no]
+                           启用 Sun medialib [默认：关闭]
+
+  --enable-zlib            enable zlib [autodetect]
+                           启用 zlib [默认：自动侦测]
+
+Advanced options (experts only):
+  --source-path=PATH       path to source code [/home/nsc/workspace/android_code/ffmpeg]
+                           源码的路径[默认：/home/nsc/workspace/android_code/ffmpeg]
+
+  --cross-prefix=PREFIX    use PREFIX for compilation tools []
+                           为编译工具指定路径
+
+  --enable-cross-compile   assume a cross-compiler is used
+                           假定使用了交叉编译
+
+  --sysroot=PATH           root of cross-build tree
+                           交叉建造树的根
+
+  --sysinclude=PATH        location of cross-build system headers
+                           交叉建造系统头文件的位置
+
+  --target-os=OS           compiler targets OS []
+                           编译器目标操作系统[默认：]
+
+  --target-exec=CMD        command to run executables on target
+                           在目标系统上运行可执行应用的命令
+
+  --target-path=DIR        path to view of build directory on target
+                           在目标系统上创建计划目录的路径
+
+  --nm=NM                  use nm tool
+                           使用指定的 nm 工具。注：列出目标文件的符号清单。
+
+  --ar=AR                  use archive tool AR [ar]
+                           使用指定的归档成静态库工具[默认：ar]
+                           注：可以用来创建、修改库，也可以从库中提出单个模块。
+
+  --as=AS                  use assembler AS []
+                           使用指定的汇编程序[默认：]
+
+  --cc=CC                  use C compiler CC [gcc]
+                           指定使用哪种C编译器[默认：gcc]
+
+  --ld=LD                  use linker LD
+                           使用指定的链接器
+
+  --host-cc=HOSTCC         use host C compiler HOSTCC
+                           使用主机C编译器HOSTCC
+
+  --host-cflags=HCFLAGS    use HCFLAGS when compiling for host
+                           宿主编译时，使用HCFLAGS
+
+  --host-ldflags=HLDFLAGS  use HLDFLAGS when linking for host
+                           宿主连接时，使用HLDFLAGS
+
+  --host-libs=HLIBS        use libs HLIBS when linking for host
+                           宿主连接时，使用HLIBS库
+
+  --extra-cflags=ECFLAGS   add ECFLAGS to CFLAGS []
+                           添加 ECFLAGS 到 CFLAGS[默认：空]
+
+  --extra-ldflags=ELDFLAGS add ELDFLAGS to LDFLAGS []
+                           添加 ELDFLAGS 到 LDFLAGS [默认：空]
+
+  --extra-libs=ELIBS       add ELIBS []
+                           添加 ELIBS [默认：空]
+
+  --extra-version=STRING   version string suffix []
+  --build-suffix=SUFFIX    library name suffix []
+                           库名后缀[默认：空]
+
+  --arch=ARCH              select architecture []
+                           选择微处理器体系结构[默认：空]
+
+  --cpu=CPU                select the minimum required CPU
+                           (affects instruction selection,
+                            may crash on older CPUs)
+                           选用要求的最低CPU（影响指令选择，可能在过时的CPU上崩溃）
+
+  --disable-asm            disable all assembler optimizations
+                           禁用全部汇编程序优化
+
+  --disable-altivec        disable AltiVec optimizations
+                           禁用 AltiVec 优化
+
+  --disable-amd3dnow       disable 3DNow! optimizations
+                           禁用 3DNow! 优化
+
+  --disable-amd3dnowext    disable 3DNow! extended optimizations
+                           禁用 3DNow! 扩展优化
+
+  --disable-mmx            disable MMX optimizations
+                           禁用 MMX 优化
+
+  --disable-mmx2           disable MMX2 optimizations
+                           禁用 MMX2 优化
+
+  --disable-sse            disable SSE optimizations
+                           禁用 SSE 优化
+
+  --disable-ssse3          disable SSSE3 optimizations
+                           禁用 SSSE3 优化
+
+  --disable-armv5te        disable armv5te optimizations
+                           禁用 armv5te 优化
+
+  --disable-armv6          disable armv6 optimizations
+                           禁用 armv6 优化
+
+  --disable-armv6t2        disable armv6t2 optimizations
+                           禁用 armv6t2 优化
+
+  --disable-armvfp         disable ARM VFP optimizations
+                           禁用 ARM VFP 优化
+
+  --disable-iwmmxt         disable iwmmxt optimizations
+                           禁用 iwmmxt 优化
+
+  --disable-mmi            disable MMI optimizations
+                           禁用 MMI 优化
+
+  --disable-neon           disable neon optimizations
+                           禁用 neon 优化
+
+  --disable-vis            disable VIS optimizations
+                           禁用 VIS 优化
+
+  --disable-yasm           disable use of yasm assembler
+                           禁用 yasm 汇编器
+
+  --enable-pic             build position-independent code
+                           创造不依赖(于)位置的代码
+
+  --malloc-prefix=PFX      prefix malloc and related names with PFX
+                           在 malloc 和 相关名称 前加指定前缀
+
+  --enable-sram            allow use of on-chip SRAM
+                           允许使用片内静态随机存储器
+
+  --disable-symver         disable symbol versioning
+                           禁用符号版本控制
+
+Developer options (useful when working on FFmpeg itself):
+  --disable-debug          disable debugging symbols
+                           禁用调试符号
+
+  --enable-debug=LEVEL     set the debug level []
+  --disable-optimizations  disable compiler optimizations
+                           禁用编译器优化
+
+  --enable-extra-warnings  enable more compiler warnings
+  --disable-stripping      disable stripping of executables and shared libraries
+                           禁止可执行程序剥脱共享库
+
+  --samples=PATH           location of test samples for FATE
+                           指定测试示例的位置
+
+NOTE: Object files are built at the place where configure is launched.
+注意：对象文件是被创建在 configure 运行的地方。
