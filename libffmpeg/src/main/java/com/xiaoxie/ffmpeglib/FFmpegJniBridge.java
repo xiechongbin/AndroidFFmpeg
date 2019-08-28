@@ -12,16 +12,7 @@ public class FFmpegJniBridge {
 
     static {
         System.loadLibrary("ffmpeg_jni");
-        System.loadLibrary("avcodec");
-        System.loadLibrary("avdevice");
-        System.loadLibrary("avfilter");
-        System.loadLibrary("avformat");
-        System.loadLibrary("avutil");
-        System.loadLibrary("postproc");
-        System.loadLibrary("avcodec");
-        System.loadLibrary("swresample");
-        System.loadLibrary("swscale");
-        System.loadLibrary("x264");
+        System.loadLibrary("ffmpeg_core");
     }
 
     private static OnCmdExecListener listener;

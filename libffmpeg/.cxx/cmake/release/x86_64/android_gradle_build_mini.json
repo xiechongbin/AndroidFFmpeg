@@ -1,0 +1,56 @@
+{
+  "buildFiles": [
+    "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/cmake --build /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/x86_64 --target clean"
+  ],
+  "libraries": {
+    "avformat-Release-x86_64": {
+      "artifactName": "avformat",
+      "abi": "x86_64",
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86_64/libavformat.so"
+    },
+    "swscale-Release-x86_64": {
+      "artifactName": "swscale",
+      "abi": "x86_64",
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86_64/libswscale.so"
+    },
+    "avcodec-Release-x86_64": {
+      "artifactName": "avcodec",
+      "abi": "x86_64",
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86_64/libavcodec.so"
+    },
+    "swresample-Release-x86_64": {
+      "artifactName": "swresample",
+      "abi": "x86_64",
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86_64/libswresample.so"
+    },
+    "ffmpeg_jni-Release-x86_64": {
+      "artifactName": "ffmpeg_jni",
+      "buildCommand": "/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/cmake --build /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/x86_64 --target ffmpeg_jni",
+      "abi": "x86_64",
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/build/intermediates/cmake/release/obj/x86_64/libffmpeg_jni.so"
+    },
+    "avdevice-Release-x86_64": {
+      "artifactName": "avdevice",
+      "abi": "x86_64",
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86_64/libavdevice.so"
+    },
+    "avfilter-Release-x86_64": {
+      "artifactName": "avfilter",
+      "abi": "x86_64",
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86_64/libavfilter.so"
+    },
+    "avutil-Release-x86_64": {
+      "artifactName": "avutil",
+      "abi": "x86_64",
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86_64/libavutil.so"
+    },
+    "postproc-Release-x86_64": {
+      "artifactName": "postproc",
+      "abi": "x86_64",
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86_64/libpostproc.so"
+    }
+  }
+}

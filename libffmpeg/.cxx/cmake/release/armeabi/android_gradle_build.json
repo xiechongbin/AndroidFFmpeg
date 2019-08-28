@@ -1,0 +1,135 @@
+
+{
+	"buildFiles" : 
+	[
+		"/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/CMakeLists.txt"
+	],
+	"cFileExtensions" : [ "c" ],
+	"cleanCommands" : 
+	[
+		"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/cmake --build /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi --target clean"
+	],
+	"libraries" : 
+	{
+		"avcodec-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "avcodec",
+			"buildType" : "release",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavcodec.so",
+			"toolchain" : "10861520575784459024"
+		},
+		"avdevice-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "avdevice",
+			"buildType" : "release",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavdevice.so",
+			"toolchain" : "10861520575784459024"
+		},
+		"avfilter-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "avfilter",
+			"buildType" : "release",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavfilter.so",
+			"toolchain" : "10861520575784459024"
+		},
+		"avformat-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "avformat",
+			"buildType" : "release",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavformat.so",
+			"toolchain" : "10861520575784459024"
+		},
+		"avutil-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "avutil",
+			"buildType" : "release",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavutil.so",
+			"toolchain" : "10861520575784459024"
+		},
+		"ffmpeg_jni-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "ffmpeg_jni",
+			"buildCommand" : "/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/cmake --build /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi --target ffmpeg_jni",
+			"buildType" : "release",
+			"files" : 
+			[
+				
+				{
+					"flags" : "  --target=armv5te-none-linux-androideabi --gcc-toolchain=/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/sysroot -Dffmpeg_jni_EXPORTS -I/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/ffmpeg-4.1.3  -isystem /Users/cxy/work/android-sdks/android-ndk-r16b/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Os -DNDEBUG  -fPIC      -c ",
+					"src" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/cpp/include/cmdutils.c",
+					"workingDirectory" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi"
+				},
+				
+				{
+					"flags" : "  --target=armv5te-none-linux-androideabi --gcc-toolchain=/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/sysroot -Dffmpeg_jni_EXPORTS -I/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/ffmpeg-4.1.3  -isystem /Users/cxy/work/android-sdks/android-ndk-r16b/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Os -DNDEBUG  -fPIC      -c ",
+					"src" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/cpp/include/ffmpeg.c",
+					"workingDirectory" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi"
+				},
+				
+				{
+					"flags" : "  --target=armv5te-none-linux-androideabi --gcc-toolchain=/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/sysroot -Dffmpeg_jni_EXPORTS -I/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/ffmpeg-4.1.3  -isystem /Users/cxy/work/android-sdks/android-ndk-r16b/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Os -DNDEBUG  -fPIC      -c ",
+					"src" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/cpp/include/ffmpeg_hw.c",
+					"workingDirectory" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi"
+				},
+				
+				{
+					"flags" : "  --target=armv5te-none-linux-androideabi --gcc-toolchain=/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/sysroot -Dffmpeg_jni_EXPORTS -I/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/ffmpeg-4.1.3  -isystem /Users/cxy/work/android-sdks/android-ndk-r16b/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Os -DNDEBUG  -fPIC      -c ",
+					"src" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/cpp/include/ffmpeg_opt.c",
+					"workingDirectory" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi"
+				},
+				
+				{
+					"flags" : "  --target=armv5te-none-linux-androideabi --gcc-toolchain=/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/sysroot -Dffmpeg_jni_EXPORTS -I/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/ffmpeg-4.1.3  -isystem /Users/cxy/work/android-sdks/android-ndk-r16b/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Os -DNDEBUG  -fPIC      -c ",
+					"src" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/cpp/include/ffmpeg_filter.c",
+					"workingDirectory" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi"
+				},
+				
+				{
+					"flags" : "  --target=armv5te-none-linux-androideabi --gcc-toolchain=/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/arm-linux-androideabi-4.9/prebuilt/darwin-x86_64 --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/sysroot -Dffmpeg_jni_EXPORTS -I/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/ffmpeg-4.1.3  -isystem /Users/cxy/work/android-sdks/android-ndk-r16b/sysroot/usr/include/arm-linux-androideabi -D__ANDROID_API__=21 -g -DANDROID -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -march=armv5te -mtune=xscale -msoft-float -fno-integrated-as -mthumb -Wa,--noexecstack -Wformat -Werror=format-security  -Os -DNDEBUG  -fPIC      -c ",
+					"src" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/cpp/xx_ffmpeg.c",
+					"workingDirectory" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi"
+				}
+			],
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/build/intermediates/cmake/release/obj/armeabi/libffmpeg_jni.so",
+			"toolchain" : "10861520575784459024"
+		},
+		"postproc-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "postproc",
+			"buildType" : "release",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libpostproc.so",
+			"toolchain" : "10861520575784459024"
+		},
+		"swresample-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "swresample",
+			"buildType" : "release",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libswresample.so",
+			"toolchain" : "10861520575784459024"
+		},
+		"swscale-Release-armeabi" : 
+		{
+			"abi" : "armeabi",
+			"artifactName" : "swscale",
+			"buildType" : "release",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libswscale.so",
+			"toolchain" : "10861520575784459024"
+		}
+	},
+	"toolchains" : 
+	{
+		"10861520575784459024" : 
+		{
+			"cCompilerExecutable" : "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang",
+			"cppCompilerExecutable" : "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang++"
+		}
+	}
+}
