@@ -11,44 +11,12 @@
 	],
 	"libraries" : 
 	{
-		"avcodec-Release-armeabi" : 
+		"ffmpeg_core-Release-armeabi" : 
 		{
 			"abi" : "armeabi",
-			"artifactName" : "avcodec",
+			"artifactName" : "ffmpeg_core",
 			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavcodec.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"avdevice-Release-armeabi" : 
-		{
-			"abi" : "armeabi",
-			"artifactName" : "avdevice",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavdevice.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"avfilter-Release-armeabi" : 
-		{
-			"abi" : "armeabi",
-			"artifactName" : "avfilter",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavfilter.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"avformat-Release-armeabi" : 
-		{
-			"abi" : "armeabi",
-			"artifactName" : "avformat",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavformat.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"avutil-Release-armeabi" : 
-		{
-			"abi" : "armeabi",
-			"artifactName" : "avutil",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libavutil.so",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libffmpeg_core.so",
 			"toolchain" : "10861520575784459024"
 		},
 		"ffmpeg_jni-Release-armeabi" : 
@@ -97,30 +65,6 @@
 				}
 			],
 			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/build/intermediates/cmake/release/obj/armeabi/libffmpeg_jni.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"postproc-Release-armeabi" : 
-		{
-			"abi" : "armeabi",
-			"artifactName" : "postproc",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libpostproc.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"swresample-Release-armeabi" : 
-		{
-			"abi" : "armeabi",
-			"artifactName" : "swresample",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libswresample.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"swscale-Release-armeabi" : 
-		{
-			"abi" : "armeabi",
-			"artifactName" : "swscale",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi/libswscale.so",
 			"toolchain" : "10861520575784459024"
 		}
 	},

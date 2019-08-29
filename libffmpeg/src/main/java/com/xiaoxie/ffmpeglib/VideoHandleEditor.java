@@ -9,11 +9,12 @@ import com.xiaoxie.ffmpeglib.config.BaseConfig;
 import com.xiaoxie.ffmpeglib.config.ChangePTSConfig;
 import com.xiaoxie.ffmpeglib.config.Image2VideoConfig;
 import com.xiaoxie.ffmpeglib.config.ReverseConfig;
-import com.xiaoxie.ffmpeglib.config.AddTextWatermarkConfig;
 import com.xiaoxie.ffmpeglib.config.Video2ImageConfig;
 import com.xiaoxie.ffmpeglib.config.VideoCompressConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeByTranscodeConfig;
 import com.xiaoxie.ffmpeglib.config.VideoMergeConfig;
+import com.xiaoxie.ffmpeglib.config.waterMark.AddImageWaterMakerConfig;
+import com.xiaoxie.ffmpeglib.config.waterMark.AddTextWatermarkConfig;
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
 import com.xiaoxie.ffmpeglib.mode.Format;
 import com.xiaoxie.ffmpeglib.mode.Mode;
@@ -896,24 +897,89 @@ public class VideoHandleEditor {
         filter_complex.append("drawtext=fontfile=")
                 .append(config.getTtf())
                 .append(":");
-        if (config.getTextSize() > 0) {
+        if (config.getFontSize() > 0) {
             filter_complex.append("fontsize=")
-                    .append(config.getTextSize())
+                    .append(config.getFontSize())
                     .append(":");
         }
-        if (!TextUtils.isEmpty(config.getTextColor())) {
+        if (config.getLine_spacing() > 0) {
+            filter_complex.append("line_spacing=")
+                    .append(config.getLine_spacing())
+                    .append(":");
+        }
+        if (!TextUtils.isEmpty(config.getFontColor())) {
             filter_complex.append("fontcolor=")
-                    .append(config.getTextColor())
+                    .append(config.getFontColor())
+                    .append("@")
+                    .append(config.getFontAlpha() > 0 ? config.getFontAlpha() : 1)
                     .append(":");
         }
+        if (config.getBox() > 0) {
+            filter_complex.append("box=")
+                    .append(config.getBox())
+                    .append(":")
+                    .append("boxcolor=")
+                    .append(TextUtils.isEmpty(config.getBoxColor()) ? "white" : config.getBoxColor())
+                    .append("@")
+                    .append(config.getBoxAlpha() > 0 ? config.getBoxAlpha() : 1)
+                    .append(":");
+        }
+        if (!TextUtils.isEmpty(config.getWatermark_time())) {
+            filter_complex.append("enable=")
+                    .append(config.getWatermark_time())
+                    .append(":");
+        }
+
         filter_complex.append("x=")
-                .append(config.getLocationX())
+                .append(config.getLocation().x)
                 .append(":")
                 .append("y=")
-                .append(config.getLocationY())
+                .append(config.getLocation().y)
                 .append(":")
-                .append("text=").append("\'" + config.getText() + "\'");
-        cmdList.append(  filter_complex.toString());
+                .append("text=")
+                .append("\'")
+                .append(config.getText())
+                .append("\'");
+        cmdList.append(filter_complex.toString());
+        cmdList.append("-preset");
+        cmdList.append(TextUtils.isEmpty(config.getPreset()) ? "superfast" : config.getPreset());
+        cmdList.append(config.getOutputPath());
+        FFmpegJniBridge.invokeCommandSync(cmdList, VideoUtils.getVideoLength(config.getInputPath()), listener);
+    }
+
+    /**
+     * 使用drawtext滤镜 添加图片水印
+     *
+     * @param config   文字水平配置文件
+     * @param listener 回调监听
+     */
+    public static void addWaterImageMaker(AddImageWaterMakerConfig config, OnCmdExecListener listener) {
+        if (config == null) {
+            throw new IllegalArgumentException("config 为空");
+        }
+        if (config.getInputPath() == null) {
+            throw new IllegalArgumentException("输入视频错误");
+        }
+        if (TextUtils.isEmpty(config.getOutputPath())) {
+            throw new IllegalArgumentException("视频输出路径不能为空");
+        }
+        if (TextUtils.isEmpty(config.getImgPath())) {
+            throw new IllegalArgumentException("水印图片不能为空");
+        }
+        CmdList cmdList = new CmdList();
+        cmdList.append("ffmpeg");
+        cmdList.append("-y");
+        cmdList.append("-threads");
+        cmdList.append(config.getThread());
+        cmdList.append("-i");
+        cmdList.append(config.getInputPath());
+        cmdList.append("-i");
+        cmdList.append(config.getImgPath());
+        cmdList.append("-filter_complex");
+        StringBuilder filter_complex = new StringBuilder();
+        filter_complex.append("overlay=x=")
+                .append(config.getLocations().x).append(":").append("y=").append(config.getLocations().y);
+        cmdList.append(filter_complex.toString());
         cmdList.append("-preset");
         cmdList.append(TextUtils.isEmpty(config.getPreset()) ? "superfast" : config.getPreset());
         cmdList.append(config.getOutputPath());

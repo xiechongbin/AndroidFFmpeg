@@ -5,7 +5,6 @@
       "sdkFolder": "/Users/cxy/work/android-sdks",
       "isNativeCompilerSettingsCacheEnabled": false,
       "isBuildOnlyTargetAbiEnabled": true,
-      "ideBuildTargetAbi": "arm64-v8a,armeabi-v7a,armeabi",
       "splitsAbiFilterSet": [],
       "intermediatesFolder": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/build/intermediates",
       "gradleModulePathName": ":libffmpeg",
@@ -45,9 +44,11 @@
     "gradleBuildOutputFolder": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cxx/debug",
     "isDebuggableEnabled": true,
     "validAbiList": [
-      "ARM64_V8A",
+      "ARMEABI",
       "ARMEABI_V7A",
-      "ARMEABI"
+      "ARM64_V8A",
+      "X86",
+      "X86_64"
     ],
     "buildTargetSet": []
   },

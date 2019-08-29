@@ -193,7 +193,7 @@ Project_BINARY_DIR:STATIC=/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/li
 Project_SOURCE_DIR:STATIC=/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg
 
 //Dependencies for the target
-ffmpeg_jni_LIB_DEPENDS:STATIC=general;avcodec;general;avdevice;general;avfilter;general;avformat;general;avutil;general;postproc;general;swresample;general;swscale;general;/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86_64/usr/lib64/liblog.so;
+ffmpeg_jni_LIB_DEPENDS:STATIC=general;ffmpeg_core;general;/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86_64/usr/lib64/liblog.so;
 
 //Path to a library.
 log-lib:FILEPATH=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86_64/usr/lib64/liblog.so

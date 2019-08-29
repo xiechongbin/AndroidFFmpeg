@@ -11,44 +11,12 @@
 	],
 	"libraries" : 
 	{
-		"avcodec-Release-x86" : 
+		"ffmpeg_core-Release-x86" : 
 		{
 			"abi" : "x86",
-			"artifactName" : "avcodec",
+			"artifactName" : "ffmpeg_core",
 			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86/libavcodec.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"avdevice-Release-x86" : 
-		{
-			"abi" : "x86",
-			"artifactName" : "avdevice",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86/libavdevice.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"avfilter-Release-x86" : 
-		{
-			"abi" : "x86",
-			"artifactName" : "avfilter",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86/libavfilter.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"avformat-Release-x86" : 
-		{
-			"abi" : "x86",
-			"artifactName" : "avformat",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86/libavformat.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"avutil-Release-x86" : 
-		{
-			"abi" : "x86",
-			"artifactName" : "avutil",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86/libavutil.so",
+			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86/libffmpeg_core.so",
 			"toolchain" : "10861520575784459024"
 		},
 		"ffmpeg_jni-Release-x86" : 
@@ -97,30 +65,6 @@
 				}
 			],
 			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/build/intermediates/cmake/release/obj/x86/libffmpeg_jni.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"postproc-Release-x86" : 
-		{
-			"abi" : "x86",
-			"artifactName" : "postproc",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86/libpostproc.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"swresample-Release-x86" : 
-		{
-			"abi" : "x86",
-			"artifactName" : "swresample",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86/libswresample.so",
-			"toolchain" : "10861520575784459024"
-		},
-		"swscale-Release-x86" : 
-		{
-			"abi" : "x86",
-			"artifactName" : "swscale",
-			"buildType" : "release",
-			"output" : "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/x86/libswscale.so",
 			"toolchain" : "10861520575784459024"
 		}
 	},

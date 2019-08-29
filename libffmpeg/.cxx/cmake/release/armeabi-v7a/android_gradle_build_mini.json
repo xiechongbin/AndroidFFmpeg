@@ -6,51 +6,16 @@
     "/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/cmake --build /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi-v7a --target clean"
   ],
   "libraries": {
-    "avdevice-Release-armeabi-v7a": {
-      "artifactName": "avdevice",
-      "abi": "armeabi-v7a",
-      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi-v7a/libavdevice.so"
-    },
-    "avformat-Release-armeabi-v7a": {
-      "artifactName": "avformat",
-      "abi": "armeabi-v7a",
-      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi-v7a/libavformat.so"
-    },
-    "swscale-Release-armeabi-v7a": {
-      "artifactName": "swscale",
-      "abi": "armeabi-v7a",
-      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi-v7a/libswscale.so"
-    },
-    "avutil-Release-armeabi-v7a": {
-      "artifactName": "avutil",
-      "abi": "armeabi-v7a",
-      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi-v7a/libavutil.so"
-    },
     "ffmpeg_jni-Release-armeabi-v7a": {
       "artifactName": "ffmpeg_jni",
       "buildCommand": "/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/cmake --build /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/release/armeabi-v7a --target ffmpeg_jni",
       "abi": "armeabi-v7a",
       "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/build/intermediates/cmake/release/obj/armeabi-v7a/libffmpeg_jni.so"
     },
-    "swresample-Release-armeabi-v7a": {
-      "artifactName": "swresample",
+    "ffmpeg_core-Release-armeabi-v7a": {
+      "artifactName": "ffmpeg_core",
       "abi": "armeabi-v7a",
-      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi-v7a/libswresample.so"
-    },
-    "avfilter-Release-armeabi-v7a": {
-      "artifactName": "avfilter",
-      "abi": "armeabi-v7a",
-      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi-v7a/libavfilter.so"
-    },
-    "avcodec-Release-armeabi-v7a": {
-      "artifactName": "avcodec",
-      "abi": "armeabi-v7a",
-      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi-v7a/libavcodec.so"
-    },
-    "postproc-Release-armeabi-v7a": {
-      "artifactName": "postproc",
-      "abi": "armeabi-v7a",
-      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi-v7a/libpostproc.so"
+      "output": "/Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/src/main/jniLibs/armeabi-v7a/libffmpeg_core.so"
     }
   }
 }
