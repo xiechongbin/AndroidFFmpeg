@@ -9,7 +9,14 @@ add_library(
         src/main/cpp/include/ffmpeg_opt.c
         src/main/cpp/include/ffmpeg_filter.c
         src/main/cpp/xx_ffmpeg.c
- )
+        src/main/cpp/xx_ffmpeg_play_video.c
+
+)
+
+find_library(
+        android-lib
+        android
+)
 
 add_library(
         ffmpeg_core
@@ -74,4 +81,5 @@ find_library(
 target_link_libraries(
         ffmpeg_jni
         ffmpeg_core
-        ${log-lib})
+        ${log-lib}
+        ${android-lib})

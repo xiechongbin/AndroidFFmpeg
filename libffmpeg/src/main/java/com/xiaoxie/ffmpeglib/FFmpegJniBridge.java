@@ -1,6 +1,7 @@
 package com.xiaoxie.ffmpeglib;
 
 import android.util.Log;
+import android.view.Surface;
 
 import com.xiaoxie.ffmpeglib.interfaces.OnCmdExecListener;
 
@@ -38,6 +39,11 @@ public class FFmpegJniBridge {
      * 异步的方式执行ffmpeg 命令
      */
     public static native int invokeCommandSync(String[] commands);
+
+    /**
+     * ffmpeg 播放视频
+     */
+    public static native int render(String videoPath, Surface surface);
 
 
     public static void invokeCommandSync(CmdList cmdList, long duration, OnCmdExecListener onCmdExecListener) {

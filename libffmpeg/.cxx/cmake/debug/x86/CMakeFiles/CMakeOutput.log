@@ -3,17 +3,17 @@ The host system is: Darwin - 18.7.0 - x86_64
 Determining if the C compiler works passed with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_e8baa"
-[1/2] Building C object CMakeFiles/cmTC_e8baa.dir/testCCompiler.c.o
-[2/2] Linking C executable cmTC_e8baa
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_c7eed"
+[1/2] Building C object CMakeFiles/cmTC_c7eed.dir/testCCompiler.c.o
+[2/2] Linking C executable cmTC_c7eed
 
 
 Detecting C compiler ABI info compiled with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_1d517"
-[1/2] Building C object CMakeFiles/cmTC_1d517.dir/CMakeCCompilerABI.c.o
-[2/2] Linking C executable cmTC_1d517
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_c2b98"
+[1/2] Building C object CMakeFiles/cmTC_c2b98.dir/CMakeCCompilerABI.c.o
+[2/2] Linking C executable cmTC_c2b98
 Android clang version 5.0.300080  (based on LLVM 5.0.300080)
 Target: i686-none-linux-android
 Thread model: posix
@@ -22,16 +22,16 @@ Found candidate GCC installation: /Users/cxy/work/android-sdks/android-ndk-r16b/
 Selected GCC installation: /Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
 Candidate multilib: .;@m32
 Selected multilib: .;@m32
- "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_1d517 /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --exclude-libs libatomic.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_1d517.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtend_android.o
+ "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_c2b98 /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --exclude-libs libatomic.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_c2b98.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtend_android.o
 
 
 Parsed C implicit link information from above output:
   link line regex: [^( *|.*[/\])(i686-linux-android-ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_1d517"]
-  ignore line: [[1/2] Building C object CMakeFiles/cmTC_1d517.dir/CMakeCCompilerABI.c.o]
-  ignore line: [[2/2] Linking C executable cmTC_1d517]
+  ignore line: [Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_c2b98"]
+  ignore line: [[1/2] Building C object CMakeFiles/cmTC_c2b98.dir/CMakeCCompilerABI.c.o]
+  ignore line: [[2/2] Linking C executable cmTC_c2b98]
   ignore line: [Android clang version 5.0.300080  (based on LLVM 5.0.300080)]
   ignore line: [Target: i686-none-linux-android]
   ignore line: [Thread model: posix]
@@ -42,7 +42,7 @@ Parsed C implicit link information from above output:
   ignore line: [@m32]
   ignore line: [Selected multilib: .]
   ignore line: [@m32]
-  link line: [ "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_1d517 /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --exclude-libs libatomic.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_1d517.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtend_android.o]
+  link line: [ "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_c2b98 /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --exclude-libs libatomic.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_c2b98.dir/CMakeCCompilerABI.c.o -lgcc -ldl -lc -lgcc -ldl /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtend_android.o]
     arg [/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld] ==> ignore
     arg [--sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86] ==> ignore
     arg [-pie] ==> ignore
@@ -52,7 +52,7 @@ Parsed C implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_1d517] ==> ignore
+    arg [cmTC_c2b98] ==> ignore
     arg [/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o] ==> ignore
     arg [-L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386] ==> dir [/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386]
     arg [-L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
@@ -71,7 +71,7 @@ Parsed C implicit link information from above output:
     arg [-znow] ==> ignore
     arg [--gc-sections] ==> ignore
     arg [-znocopyreloc] ==> ignore
-    arg [CMakeFiles/cmTC_1d517.dir/CMakeCCompilerABI.c.o] ==> ignore
+    arg [CMakeFiles/cmTC_c2b98.dir/CMakeCCompilerABI.c.o] ==> ignore
     arg [-lgcc] ==> lib [gcc]
     arg [-ldl] ==> lib [dl]
     arg [-lc] ==> lib [c]
@@ -94,9 +94,9 @@ Parsed C implicit link information from above output:
 Detecting C [-std=c11] compiler features compiled with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_d8aa1"
-[1/2] Building C object CMakeFiles/cmTC_d8aa1.dir/feature_tests.c.o
-[2/2] Linking C executable cmTC_d8aa1
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_c39e8"
+[1/2] Building C object CMakeFiles/cmTC_c39e8.dir/feature_tests.c.o
+[2/2] Linking C executable cmTC_c39e8
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -108,9 +108,9 @@ Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cm
 Detecting C [-std=c99] compiler features compiled with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_703cf"
-[1/2] Building C object CMakeFiles/cmTC_703cf.dir/feature_tests.c.o
-[2/2] Linking C executable cmTC_703cf
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_11086"
+[1/2] Building C object CMakeFiles/cmTC_11086.dir/feature_tests.c.o
+[2/2] Linking C executable cmTC_11086
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -122,9 +122,9 @@ Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cm
 Detecting C [-std=c90] compiler features compiled with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_b4765"
-[1/2] Building C object CMakeFiles/cmTC_b4765.dir/feature_tests.c.o
-[2/2] Linking C executable cmTC_b4765
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_14ae7"
+[1/2] Building C object CMakeFiles/cmTC_14ae7.dir/feature_tests.c.o
+[2/2] Linking C executable cmTC_14ae7
 
 
     Feature record: C_FEATURE:1c_function_prototypes
@@ -134,17 +134,17 @@ Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cm
 Determining if the CXX compiler works passed with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_730d3"
-[1/2] Building CXX object CMakeFiles/cmTC_730d3.dir/testCXXCompiler.cxx.o
-[2/2] Linking CXX executable cmTC_730d3
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_6c969"
+[1/2] Building CXX object CMakeFiles/cmTC_6c969.dir/testCXXCompiler.cxx.o
+[2/2] Linking CXX executable cmTC_6c969
 
 
 Detecting CXX compiler ABI info compiled with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_c43e3"
-[1/2] Building CXX object CMakeFiles/cmTC_c43e3.dir/CMakeCXXCompilerABI.cpp.o
-[2/2] Linking CXX executable cmTC_c43e3
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_2c529"
+[1/2] Building CXX object CMakeFiles/cmTC_2c529.dir/CMakeCXXCompilerABI.cpp.o
+[2/2] Linking CXX executable cmTC_2c529
 Android clang version 5.0.300080  (based on LLVM 5.0.300080)
 Target: i686-none-linux-android
 Thread model: posix
@@ -153,16 +153,16 @@ Found candidate GCC installation: /Users/cxy/work/android-sdks/android-ndk-r16b/
 Selected GCC installation: /Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x
 Candidate multilib: .;@m32
 Selected multilib: .;@m32
- "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_c43e3 /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --exclude-libs libatomic.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_c43e3.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtend_android.o
+ "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_2c529 /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --exclude-libs libatomic.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_2c529.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtend_android.o
 
 
 Parsed CXX implicit link information from above output:
   link line regex: [^( *|.*[/\])(i686-linux-android-ld|([^/\]+-)?ld|collect2)[^/\]*( |$)]
   ignore line: [Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp]
   ignore line: []
-  ignore line: [Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_c43e3"]
-  ignore line: [[1/2] Building CXX object CMakeFiles/cmTC_c43e3.dir/CMakeCXXCompilerABI.cpp.o]
-  ignore line: [[2/2] Linking CXX executable cmTC_c43e3]
+  ignore line: [Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_2c529"]
+  ignore line: [[1/2] Building CXX object CMakeFiles/cmTC_2c529.dir/CMakeCXXCompilerABI.cpp.o]
+  ignore line: [[2/2] Linking CXX executable cmTC_2c529]
   ignore line: [Android clang version 5.0.300080  (based on LLVM 5.0.300080)]
   ignore line: [Target: i686-none-linux-android]
   ignore line: [Thread model: posix]
@@ -173,7 +173,7 @@ Parsed CXX implicit link information from above output:
   ignore line: [@m32]
   ignore line: [Selected multilib: .]
   ignore line: [@m32]
-  link line: [ "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_c43e3 /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --exclude-libs libatomic.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_c43e3.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtend_android.o]
+  link line: [ "/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld" --sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86 -pie --eh-frame-hdr -m elf_i386 -dynamic-linker /system/bin/linker -o cmTC_2c529 /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386 -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x -L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/lib -L/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib --exclude-libs libgcc.a --exclude-libs libatomic.a --build-id --warn-shared-textrel --fatal-warnings --no-undefined -z noexecstack -z relro -z now --gc-sections -z nocopyreloc CMakeFiles/cmTC_2c529.dir/CMakeCXXCompilerABI.cpp.o -lstdc++ -lm -lgcc -lgcc -ldl -lc -lgcc -lgcc -ldl /Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtend_android.o]
     arg [/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x/../../../../i686-linux-android/bin/ld] ==> ignore
     arg [--sysroot=/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86] ==> ignore
     arg [-pie] ==> ignore
@@ -183,7 +183,7 @@ Parsed CXX implicit link information from above output:
     arg [-dynamic-linker] ==> ignore
     arg [/system/bin/linker] ==> ignore
     arg [-o] ==> ignore
-    arg [cmTC_c43e3] ==> ignore
+    arg [cmTC_2c529] ==> ignore
     arg [/Users/cxy/work/android-sdks/android-ndk-r16b/platforms/android-21/arch-x86/usr/lib/crtbegin_dynamic.o] ==> ignore
     arg [-L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386] ==> dir [/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/llvm/prebuilt/darwin-x86_64/lib64/clang/5.0.300080/lib/linux/i386]
     arg [-L/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x] ==> dir [/Users/cxy/work/android-sdks/android-ndk-r16b/toolchains/x86-4.9/prebuilt/darwin-x86_64/lib/gcc/i686-linux-android/4.9.x]
@@ -202,7 +202,7 @@ Parsed CXX implicit link information from above output:
     arg [-znow] ==> ignore
     arg [--gc-sections] ==> ignore
     arg [-znocopyreloc] ==> ignore
-    arg [CMakeFiles/cmTC_c43e3.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+    arg [CMakeFiles/cmTC_2c529.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
     arg [-lstdc++] ==> lib [stdc++]
     arg [-lm] ==> lib [m]
     arg [-lgcc] ==> lib [gcc]
@@ -231,9 +231,9 @@ Parsed CXX implicit link information from above output:
 Detecting CXX [-std=c++14] compiler features compiled with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_99e03"
-[1/2] Building CXX object CMakeFiles/cmTC_99e03.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_99e03
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_c74fd"
+[1/2] Building CXX object CMakeFiles/cmTC_c74fd.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_c74fd
 
 
     Feature record: CXX_FEATURE:1cxx_aggregate_default_initializers
@@ -298,9 +298,9 @@ Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cm
 Detecting CXX [-std=c++11] compiler features compiled with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_36349"
-[1/2] Building CXX object CMakeFiles/cmTC_36349.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_36349
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_231d9"
+[1/2] Building CXX object CMakeFiles/cmTC_231d9.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_231d9
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers
@@ -365,9 +365,9 @@ Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cm
 Detecting CXX [-std=c++98] compiler features compiled with the following output:
 Change Dir: /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/libffmpeg/.cxx/cmake/debug/x86/CMakeFiles/CMakeTmp
 
-Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_e0736"
-[1/2] Building CXX object CMakeFiles/cmTC_e0736.dir/feature_tests.cxx.o
-[2/2] Linking CXX executable cmTC_e0736
+Run Build Command:"/Users/cxy/work/android-sdks/cmake/3.6.4111459/bin/ninja" "cmTC_903a3"
+[1/2] Building CXX object CMakeFiles/cmTC_903a3.dir/feature_tests.cxx.o
+[2/2] Linking CXX executable cmTC_903a3
 
 
     Feature record: CXX_FEATURE:0cxx_aggregate_default_initializers

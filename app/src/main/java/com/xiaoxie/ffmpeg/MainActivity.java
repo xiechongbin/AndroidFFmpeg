@@ -2,6 +2,7 @@ package com.xiaoxie.ffmpeg;
 
 import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -295,12 +296,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 AddImageWaterMakerConfig addImageWaterMakerConfig = new AddImageWaterMakerConfig();
                 addImageWaterMakerConfig.setWaterMakerPath(logoPath);
                 addImageWaterMakerConfig.setInputPath(inputPath);
-                addImageWaterMakerConfig.setLocations(new Locations("30","30"));
+                addImageWaterMakerConfig.setLocations(new Locations("30", "30"));
                 addImageWaterMakerConfig.setOutputPath("/storage/emulated/0/图片水印.mp4");
                 VideoHandleEditor.addWaterImageMaker(addImageWaterMakerConfig, this);
                 break;
-                //视频播放
+            //视频播放
             case R.id.ll_do_play_video:
+                Intent intent = new Intent(this, VideoPlayActivity.class);
+                this.startActivity(intent);
                 break;
         }
     }
