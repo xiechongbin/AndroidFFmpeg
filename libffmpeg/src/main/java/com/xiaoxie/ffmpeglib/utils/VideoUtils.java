@@ -1,5 +1,6 @@
 package com.xiaoxie.ffmpeglib.utils;
 
+import android.graphics.BitmapFactory;
 import android.media.MediaExtractor;
 import android.media.MediaFormat;
 import android.media.MediaMetadataRetriever;
@@ -186,5 +187,20 @@ public class VideoUtils {
             }
         }
         return -1;
+    }
+
+    public static int[] getImageScaleW(String path) {
+        if (TextUtils.isEmpty(path) || !new File(path).exists()) {
+            return null;
+        }
+        try {
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inJustDecodeBounds = true;
+            BitmapFactory.decodeFile(path, options);
+            return new int[]{options.outWidth, options.outHeight};
+        } catch (Exception e) {
+            e.fillInStackTrace();
+            return null;
+        }
     }
 }

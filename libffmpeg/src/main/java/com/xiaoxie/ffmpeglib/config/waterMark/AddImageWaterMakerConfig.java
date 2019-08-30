@@ -7,15 +7,17 @@ import com.xiaoxie.ffmpeglib.config.BaseConfig;
  * Created by xcb on 2019-08-29.
  */
 public class AddImageWaterMakerConfig extends BaseConfig {
-    private String imgPath;
+    private String waterMakerPath;
     private Locations locations;
-
-    public String getImgPath() {
-        return imgPath == null ? "" : imgPath;
+    private float waterMakerWidth;
+    private float waterMakerHeight;
+    
+    public String getWaterMakerPath() {
+        return waterMakerPath == null ? "" : waterMakerPath;
     }
 
-    public void setImgPath(String imgPath) {
-        this.imgPath = imgPath;
+    public void setWaterMakerPath(String imgPath) {
+        this.waterMakerPath = imgPath;
     }
 
     public Locations getLocations() {
@@ -24,5 +26,21 @@ public class AddImageWaterMakerConfig extends BaseConfig {
 
     public void setLocations(Locations locations) {
         this.locations = locations;
+    }
+
+    public float getWaterMakerWidth() {
+        return waterMakerWidth;
+    }
+
+    public void setWaterMakerWidth(float waterMakerWidth) {
+        this.waterMakerWidth = waterMakerWidth;
+    }
+
+    public float getWaterMakerHeight() {
+        return waterMakerHeight;
+    }
+
+    public void setWaterMakerHeight(float waterMakerHeight) {
+        this.waterMakerHeight = waterMakerHeight;
     }
 }

@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private static final String inputPath1 = "/storage/emulated/0/in1.mp4";
     private static final String inputPath2 = "/storage/emulated/0/in2.mp4";
     private static final String outputPath = "/storage/emulated/0/out.mp4";
-    private static final String logoPath = "/storage/emulated/0/logo.png";
+    private static final String logoPath = "/storage/emulated/0/logo.gif";
     private EditText ed_command;
     private Button btn_invoke;
     private ProgressDialog dialog;
@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout ll_image_2_video;
     private LinearLayout ll_video_add_text;
     private LinearLayout ll_video_add_image;
+    private LinearLayout ll_do_play_video;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +90,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_image_2_video = findViewById(R.id.ll_image_2_video);
         ll_video_add_text = findViewById(R.id.ll_video_add_text);
         ll_video_add_image = findViewById(R.id.ll_video_add_image);
+        ll_do_play_video = findViewById(R.id.ll_do_play_video);
         setListener();
         MainActivityPermissionsDispatcher.onClickWithPermissionCheck(this, 0);
     }
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_image_2_video.setOnClickListener(this);
         ll_video_add_text.setOnClickListener(this);
         ll_video_add_image.setOnClickListener(this);
+        ll_do_play_video.setOnClickListener(this);
     }
 
     @Override
@@ -290,11 +293,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_video_add_image:
                 showDialog();
                 AddImageWaterMakerConfig addImageWaterMakerConfig = new AddImageWaterMakerConfig();
-                addImageWaterMakerConfig.setImgPath(logoPath);
+                addImageWaterMakerConfig.setWaterMakerPath(logoPath);
                 addImageWaterMakerConfig.setInputPath(inputPath);
                 addImageWaterMakerConfig.setLocations(new Locations("30","30"));
                 addImageWaterMakerConfig.setOutputPath("/storage/emulated/0/图片水印.mp4");
                 VideoHandleEditor.addWaterImageMaker(addImageWaterMakerConfig, this);
+                break;
+                //视频播放
+            case R.id.ll_do_play_video:
                 break;
         }
     }

@@ -948,7 +948,7 @@ public class VideoHandleEditor {
     }
 
     /**
-     * 使用drawtext滤镜 添加图片水印
+     * 使用drawtext滤镜 添加图片水印  只是 png  jpg  gif
      *
      * @param config   文字水平配置文件
      * @param listener 回调监听
@@ -963,8 +963,16 @@ public class VideoHandleEditor {
         if (TextUtils.isEmpty(config.getOutputPath())) {
             throw new IllegalArgumentException("视频输出路径不能为空");
         }
-        if (TextUtils.isEmpty(config.getImgPath())) {
+        if (TextUtils.isEmpty(config.getWaterMakerPath())) {
             throw new IllegalArgumentException("水印图片不能为空");
+        }
+        int[] imageSize = VideoUtils.getImageScaleW(config.getWaterMakerPath());
+        if (imageSize == null) {
+            throw new IllegalArgumentException("水印尺寸获取失败");
+        }
+        boolean isGif = false;
+        if (config.getWaterMakerPath().endsWith("gif") || config.getWaterMakerPath().endsWith("GIF")) {
+            isGif = true;
         }
         CmdList cmdList = new CmdList();
         cmdList.append("ffmpeg");
@@ -973,12 +981,26 @@ public class VideoHandleEditor {
         cmdList.append(config.getThread());
         cmdList.append("-i");
         cmdList.append(config.getInputPath());
+        if (isGif) {
+            cmdList.append("-ignore_loop").append("0");
+        }
         cmdList.append("-i");
-        cmdList.append(config.getImgPath());
+        cmdList.append(config.getWaterMakerPath());
         cmdList.append("-filter_complex");
         StringBuilder filter_complex = new StringBuilder();
-        filter_complex.append("overlay=x=")
-                .append(config.getLocations().x).append(":").append("y=").append(config.getLocations().y);
+
+        if (isGif) {
+            int w = config.getWaterMakerWidth() > 0 ? (int) config.getWaterMakerWidth() : imageSize[0];
+            int h = config.getWaterMakerHeight() > 0 ? (int) config.getWaterMakerHeight() : imageSize[1];
+            filter_complex.append("[0:v]scale=iw:ih[outv0]")
+                    .append(";").append("[1:0]scale=").append(w).append(":").append(h)
+                    .append("[outv1]").append(";").append("[outv0][outv1]").append("overlay=x=")
+                    .append(config.getLocations().x).append(":").append("y=").append(config.getLocations().y).append(":").append("shortest=1");
+        } else {
+            filter_complex.append("overlay=x=")
+                    .append(config.getLocations().x).append(":").append("y=").append(config.getLocations().y);
+        }
+
         cmdList.append(filter_complex.toString());
         cmdList.append("-preset");
         cmdList.append(TextUtils.isEmpty(config.getPreset()) ? "superfast" : config.getPreset());

@@ -321,6 +321,23 @@
                     android:textSize="20sp"/>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_do_play_video"
+                android:layout_width="match_parent"
+                android:layout_height="45dp"
+                android:layout_marginTop="2dp"
+                android:background="@color/color_1e90ff"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="视频播放"
+                    android:textSize="20sp"/>
+
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
