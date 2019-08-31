@@ -70,8 +70,7 @@ if (${ANDROID_ABI} STREQUAL "x86_64")
 endif (${ANDROID_ABI} STREQUAL "x86_64")
 
 include_directories(
-        /Users/cxy/work/projects/xcb_projects/AndroidFFmpeg/ffmpeg-4.1.3/
-
+        ../ffmpeg-4.1.3/
 )
 
 find_library(
