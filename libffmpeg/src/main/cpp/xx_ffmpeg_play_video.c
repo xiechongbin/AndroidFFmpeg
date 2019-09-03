@@ -1,5 +1,5 @@
 //
-//ffmpeg 播放视频
+//ffmpeg 单独播放音频
 // Created by cxy on 2019-08-30.
 //
 

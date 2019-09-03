@@ -45,6 +45,8 @@ public class FFmpegJniBridge {
      */
     public static native int render(String videoPath, Surface surface);
 
+    public static native int playSound(String path);
+
 
     public static void invokeCommandSync(CmdList cmdList, long duration, OnCmdExecListener onCmdExecListener) {
         Log.d("ffmpeg_log", cmdList.toString());

@@ -10,7 +10,7 @@ add_library(
         src/main/cpp/include/ffmpeg_filter.c
         src/main/cpp/xx_ffmpeg.c
         src/main/cpp/xx_ffmpeg_play_video.c
-
+        src/main/cpp/xx_ffmpeg_play_audio.c
 )
 
 find_library(
@@ -80,5 +80,6 @@ find_library(
 target_link_libraries(
         ffmpeg_jni
         ffmpeg_core
+        OpenSLES
         ${log-lib}
         ${android-lib})
