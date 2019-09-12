@@ -70,12 +70,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private LinearLayout ll_video_add_text;
     private LinearLayout ll_video_add_image;
     private LinearLayout ll_do_play_video;
+    private LinearLayout ll_camera_preview;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
         ed_command = findViewById(R.id.ed_command);
@@ -97,6 +98,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_video_add_text = findViewById(R.id.ll_video_add_text);
         ll_video_add_image = findViewById(R.id.ll_video_add_image);
         ll_do_play_video = findViewById(R.id.ll_do_play_video);
+        ll_camera_preview = findViewById(R.id.ll_camera_preview);
         setListener();
         MainActivityPermissionsDispatcher.onClickWithPermissionCheck(this, 0);
     }
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_video_add_text.setOnClickListener(this);
         ll_video_add_image.setOnClickListener(this);
         ll_do_play_video.setOnClickListener(this);
+        ll_camera_preview.setOnClickListener(this);
     }
 
     @Override
@@ -309,6 +312,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.ll_do_play_video:
                 Intent intent = new Intent(this, VideoPlayActivity.class);
                 this.startActivity(intent);
+                break;
+            //视频播放
+            case R.id.ll_camera_preview:
+                this.startActivity(new Intent(this, CameraActivity.class));
                 break;
         }
     }

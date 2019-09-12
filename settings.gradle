@@ -1,1 +1,1 @@
-include ':libffmpeg',':uvccamera',':app'
+include ':libffmpeg',':uvccamera',':app', ':cameralibrary'
